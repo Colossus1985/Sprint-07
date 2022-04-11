@@ -22,21 +22,22 @@
             <div class="row pt-4">
                 <div class="col-lg-12 margin-tb">
                     <div class="pull-left">
-                        <h2>Add New Movie</h2>
+                        <h2>New Movie</h2>
                     </div>
                     <div class="pull-right mb-2">
-                        <a class="btn btn-success" href="{{ route('create') }}"> New Movie</a>
+                        <a class="btn btn-success" href="{{ route('index') }}">Back</a>
                     </div>
                 </div>
             </div>
-            <form class="d-flex mb-4" action="{{ route('search') }}" method="GET">
+            {{-- <form class="d-flex" action="/search" method="Get" role="search">
                 @csrf
                 <div class="input-group">
-                    <input class="form-control me-2" name="inputSearchMovie" placeholder="Search..." aria-label="Search...">
+                    <input class="form-control me-2" name="inputSearchMovie" placeholder="Search..." aria-label="Search">
                     <button class="btn btn-outline-success ms-2" type="submit">🔎</button>
                 </div>
-            </form>
-            {{-- <a class = "btn btn-outline-success ms-2" href = "{{ route('search') }}">test</a> --}}
+            </form> --}}
+            {{-- <a class = "btn btn-outline-success ms-2" href = "{{ route('searchback') }}">go back</a> --}}
+            <h1>dans test.blade</h1>
             @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                     <p>{{ $message }}</p>
@@ -67,8 +68,8 @@
                     <td>{{ $movie ->likeplus }}</td>
                     <td>{{ $movie ->likemoins }}</td>
                     <td>
-                        <form action="{{ route('movies.destroy', $movie->id) }}" method="Post"> 
-                            <a class="btn btn-primary" href="{{ route('movies.edit', $movie->id) }}">Edit</a>
+                        <form action="{{ route('movies.destroy',$movie->id) }}" method="Post"> 
+                            <a class="btn btn-primary" href="{{ route('movies.edit',$movie->id) }}">Edit</a> 
                             @csrf 
                             @method('DELETE') 
                             <button type="submit" class="btn btn-danger">Delete</button> 

@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('forum_movies');
+        Schema::dropIfExists('movies');
     }
 };
