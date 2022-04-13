@@ -12,14 +12,11 @@ class forumMoviesCRUDController extends Controller
     *
     * @return \Illuminate\Http\Response
     */
-    public function index()
+    public function home()
     {
         $data['movies'] = Movies::orderBy('id','desc')->paginate(1000);
-        return view('movies.index', $data);
+        return view('movies.mainView', $data);
     }
-
- 
-
 
     /**
     * Show the form for creating a new resource.
@@ -45,7 +42,7 @@ class forumMoviesCRUDController extends Controller
             'time' => 'required',
             'synopsis' => 'required',
             'genre' => 'required',
-            'img' => ''
+            'img' => '',
         ]);
 
         $movie = new Movies;
@@ -54,10 +51,11 @@ class forumMoviesCRUDController extends Controller
         $movie -> time = $request -> time;
         $movie -> synopsis = $request -> synopsis;
         $movie -> genre = $request -> genre;
-        $movie -> img = $request -> img;
+        $movie -> likeplus = $request -> likeplus;
+        $movie -> likemoins = $request -> likemoins;
         $movie -> save();
         
-        return redirect()->route('movies.index')
+        return redirect()->route('home')
             -> with('success','Movie has been created successfully.');
     }
 
@@ -69,7 +67,7 @@ class forumMoviesCRUDController extends Controller
     */
     public function show(Movies $movie)
     {
-        return view('movies.index', compact('movie'));
+        return view('movies.home', compact('movie'));
     } 
 
     /**
@@ -119,7 +117,7 @@ class forumMoviesCRUDController extends Controller
         $movie -> likemoins = $request -> likemoins;
         $movie -> save();
         
-        return redirect() -> route('movies.index')
+        return redirect() -> route('home')
             -> with('success', 'Movie Has Been updated successfully');
     }
     /**
@@ -131,7 +129,7 @@ class forumMoviesCRUDController extends Controller
     public function destroy(Movies $movie)
     {
         $movie->delete();
-        return redirect() -> route('movies.index')
+        return redirect() -> route('home')
             -> with('success', 'Movie has been deleted successfully');
     }
 }
