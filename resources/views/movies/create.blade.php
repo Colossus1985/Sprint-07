@@ -33,7 +33,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>Realease Date:</strong>
-                            <input type="date" name="release" class="form-control" placeholder="release">
+                            <input type="date" name="release" class="form-control" placeholder="Release">
                                 @error('release')
                             <div class="alert alert-danger mt-1 mb-1">
                                 {{ $message }}

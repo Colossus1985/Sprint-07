@@ -51,6 +51,7 @@ class forumMoviesCRUDController extends Controller
         $movie -> time = $request -> time;
         $movie -> synopsis = $request -> synopsis;
         $movie -> genre = $request -> genre;
+        $movie -> img = $request -> img;
         $movie -> likeplus = $request -> likeplus;
         $movie -> likemoins = $request -> likemoins;
         $movie -> save();
