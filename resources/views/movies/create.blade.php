@@ -6,8 +6,10 @@
                     <div class="pull-left mb-2">
                         <h2>Add Film</h2>
                     </div>
-                    <div class="pull-right">
-                        <a class="btn btn-primary" href="{{ route('home') }}"> Back</a>
+                    <div class="d-flex flex-row">
+                        <div class="pull-right">
+                            <a class="btn btn-primary me-3" href="{{ route('home') }}" enctype="multipart/form-data"> Back</a>
+                        </div>
                     </div>
                 </div>
             </div>

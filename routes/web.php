@@ -17,12 +17,13 @@ use App\Http\Controllers\userController;
 */
 
 Route::get('/', [forumMoviesCRUDController::class, 'home']);
-Route::resource('/movies', forumMoviesCRUDController::class);
-Route::get('/home', [forumMoviesCRUDController::class, 'home']) -> name('home');
+Route::resource('movies', forumMoviesCRUDController::class);
+Route::get('home', [forumMoviesCRUDController::class, 'home']) -> name('home');
 
-Route::get('/create', [forumMoviesCRUDController::class , 'create']) -> name('create');
-Route::get('/test', [searchController::class , 'search']) -> name('search');
-Route::get('/edit', [forumMoviesCRUDController::class , 'edit']) -> name('edit');
+Route::get('create', [forumMoviesCRUDController::class , 'create']) -> name('create');
+Route::get('test', [searchController::class , 'search']) -> name('search');
+Route::get('detailMovie', [searchController::class , 'detailMovie']) -> name('detailMovie');
+Route::get('edit', [forumMoviesCRUDController::class , 'edit']) -> name('edit');
 
 Route::get('register', [userController::class, 'register'])->name('register');
 Route::post('register', [userController::class, 'register_action'])->name('register.action');

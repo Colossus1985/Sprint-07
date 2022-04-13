@@ -29,4 +29,20 @@ class searchController extends Controller
     {
         return view('movies.home');
     }
+
+    /**
+    * Display one movie by id.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */          
+    public function detailMovie(Request $request)
+    {
+        $detailMovie = trim($request -> get('inputDetailMovie'));
+        $data['movies'] = Movies::query()
+                ->where('name', '=',  $detailMovie)
+                ->get();
+
+        return view('movies.detailMovie', $data);
+    }
 }

@@ -6,8 +6,15 @@
                     <div class="pull-left">
                         <h2>Edit Film</h2>
                     </div>
-                    <div class="pull-right">
-                        <a class="btn btn-primary" href="{{ route('home', $movie) }}" enctype="multipart/form-data"> Back</a>
+                    <div class="d-flex flex-row">
+                        <div class="pull-right">
+                            <a class="btn btn-primary me-3" href="{{ route('home') }}" enctype="multipart/form-data"> Back</a>
+                        </div>
+                        @auth
+                            <div class="pull-right mb-2">
+                            <a class="btn btn-success" href="{{ route('create') }}">New Movie in detail</a>
+                        </div>
+                        @endauth
                     </div>
                 </div>
             </div>

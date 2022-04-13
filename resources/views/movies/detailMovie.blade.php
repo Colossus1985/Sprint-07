@@ -4,9 +4,12 @@
         <div class="row pt-4">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left">
-                    <h2>The Movie Show</h2>
+                    <h2>Movie</h2>
                 </div>
                 <div class="d-flex flex-row">
+                    <div class="pull-right">
+                        <a class="btn btn-primary me-3" href="{{ route('home') }}" enctype="multipart/form-data"> Back</a>
+                    </div>
                     @auth
                         <div class="pull-right mb-2">
                         <a class="btn btn-success" href="{{ route('create') }}">New Movie in detail</a>
@@ -46,11 +49,7 @@
             @foreach ($movies as $movie)
             <tr>
                 <td>{{ $movie ->id }}</td>
-                <td>
-                    <form action="{{ route('detailMovie', $movie->id) }}" method="GET">
-                        <input type="submit" class="form-control me-2 btn btn-info" name="inputDetailMovie" readonly value = "{{ $movie ->name }}">
-                    </form>
-                </td>
+                <td>{{ $movie ->name }}</td>
                 <td class="text-nowrap">{{ $movie ->release }}</td>
                 <td>{{ $movie ->time }}</td>
                 <td>{{ $movie ->synopsis }}</td>
@@ -59,14 +58,14 @@
                 <td>{{ $movie ->likeplus }}</td>
                 <td>{{ $movie ->likemoins }}</td>
                 @auth
-                    <td>
+                   <td>
                     <form action="{{ route('movies.destroy', $movie->id) }}" method="Post"> 
                         <a class="btn btn-primary" href="{{ route('movies.edit', $movie->id) }}">Edit</a>
                         @csrf 
                         @method('DELETE') 
                         <button type="submit" class="btn btn-danger">Delete</button> 
                     </form>
-                </td>
+                </td> 
                 @endauth
             </tr>
             @endforeach
