@@ -8,7 +8,7 @@
                     </div>
                     <div class="d-flex flex-row">
                         <div class="pull-right">
-                            <a class="btn btn-primary me-3" href="{{ route('home') }}" enctype="multipart/form-data"> Back</a>
+                            <a class="btn btn-primary me-3" href="{{ route('home') }}" enctype="multipart/form-data">Back</a>
                         </div>
                     </div>
                 </div>
@@ -32,26 +32,39 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>Realease Date:</strong>
-                            <input type="date" name="release" class="form-control" placeholder="Release">
-                                @error('release')
-                            <div class="alert alert-danger mt-1 mb-1">
-                                {{ $message }}
+                    <div class="d-flex flex-row justify-content-between">
+                        <div class="flex-fill me-2">
+                            <div class="form-group">
+                                <strong>Realease Date:</strong>
+                                <input type="date" name="release" class="form-control" placeholder="Release">
+                                    @error('release')
+                                <div class="alert alert-danger mt-1 mb-1">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
-                            @enderror
                         </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>Time:</strong>
-                            <input type="text" name="time" class="form-control" placeholder="Time">
-                            @error('time')
-                            <div class="alert alert-danger mt-1 mb-1">
-                                {{ $message }}
+                        <div class="flex-fill mx-2">
+                            <div class="form-group">
+                                <strong>Time:</strong>
+                                <input type="text" name="time" class="form-control" placeholder="Time">
+                                @error('time')
+                                <div class="alert alert-danger mt-1 mb-1">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
-                            @enderror
+                        </div>
+                        <div class="flex-fill ms-2">
+                            <div class="form-group">
+                                <strong>Genre:</strong>
+                                <input type="text" name="genre" class="form-control" placeholder="Genre">
+                                @error('genre')
+                                <div class="alert alert-danger mt-1 mb-1">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -59,17 +72,6 @@
                             <strong>Synopsis:</strong>
                             <textarea name="synopsis" rows="10" cols="70" class="form-control" placeholder="Synopsis"></textarea>
                             @error('synopsis')
-                            <div class="alert alert-danger mt-1 mb-1">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>Genre:</strong>
-                            <input type="text" name="genre" class="form-control" placeholder="Genre">
-                            @error('genre')
                             <div class="alert alert-danger mt-1 mb-1">
                                 {{ $message }}
                             </div>
@@ -87,29 +89,37 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>Loved:</strong>
-                            <input type="text" name="likeplus" class="form-control" value = "0">
-                            @error('likeplus')
-                            <div class="alert alert-danger mt-1 mb-1">
-                                {{ $message }}
+                    <div class="d-flex flex-row justify-content-between">
+                        <div class="flex-fill me-2">
+                            <div class="form-group ">
+                                <strong>Loved:</strong>
+                                <input type="text" name="likeplus" class="form-control" value = "0">
+                                @error('likeplus')
+                                <div class="alert alert-danger mt-1 mb-1">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
-                            @enderror
+                        </div>
+                        <div class="flex-fill mx-2">
+                            <div class="form-group">
+                                <strong>Hated:</strong>
+                                <input type="text" name="likemoins" class="form-control" value = "0">
+                                @error('likemoins')
+                                <div class="alert alert-danger mt-1 mb-1">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="flex-fill mt-4 ms-2">
+                            <div class="form-group">
+                                <div class="">
+                                    <input type="submit" class="form-control btn btn-primary" value = Submit>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>Hated:</strong>
-                            <input type="text" name="likemoins" class="form-control" value = "0">
-                            @error('likemoins')
-                            <div class="alert alert-danger mt-1 mb-1">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary ml-3">Submit</button>
                 </div>
             </form>
         </div>

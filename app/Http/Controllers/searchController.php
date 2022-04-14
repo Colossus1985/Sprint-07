@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 use App\Models\Movies;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class searchController extends Controller
 {
@@ -38,11 +40,38 @@ class searchController extends Controller
     */          
     public function detailMovie(Request $request)
     {
-        $detailMovie = trim($request -> get('inputDetailMovie'));
-        $data['movies'] = Movies::query()
-                ->where('name', '=',  $detailMovie)
+        $nameMovie = trim($request -> get('inputDetailMovie'));
+        
+        $dataMovie['movies'] = Movies::query()
+                ->where('name', '=',  $nameMovie)
                 ->get();
 
-        return view('movies.detailMovie', $data);
+        $commentsTableName = "post_".$nameMovie;
+        
+        $dataComments['comments'] = DB::select("SELECT pseudo, comment, created_at 
+                                    from $commentsTableName
+                                    ORDER BY `created_at` ASC");
+                
+
+        return view('movies.detailMovie', $dataMovie, $dataComments);
     }
+
+    public function add_comment(Request $request)
+    {
+        $request->validate([
+            'commentArea' => 'required'
+        ]);
+
+        $movieName = trim($request -> get('inputMovieName'));
+        $comment = trim($request -> get('commentArea'));
+        $pseudo = Auth::user()->pseudo;
+        $commentsTableName = "post_".$movieName;
+        DB::insert("INSERT INTO $commentsTableName (pseudo, comment) 
+                                            VALUES (?, ?)",
+                                            [$pseudo, $comment]);
+
+        return redirect()->back();
+    }
+
+    
 }

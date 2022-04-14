@@ -27,7 +27,7 @@
                 </div>
         
                 <button class="btn btn-primary" type="submit">GoGo</button>
-                <a class="btn btn-info" href = "#">Register</a>
+                <a class="btn btn-info" href = "{{ route('register') }}">Register</a>
                 <a class="btn btn-info" href = "{{ route('home') }}">Back</a>
             </form>
         </div>

@@ -76,13 +76,20 @@
                     </div>
                 </div>
                 <div class="d-flex flex-row">
+                    <form class="d-flex me-5" action="{{ route('search') }}" method="GET">
+                        @csrf
+                        <div class="input-group">
+                            <input class="form-control me-2" name="inputSearchMovie" placeholder="Search..." aria-label="Search...">
+                            <button class="btn btn-outline-success ms-2" type="submit">🔎</button>
+                        </div>
+                    </form>
                     @auth
-                        <a class = "btn btn-primary me-3" href="{{ route('changePersoInfos') }}"><b>{{ Auth::user()->pseudo }}</b></a>
+                        <a class = "btn btn-primary ms-5 me-3" href="{{ route('changePersoInfos') }}"><b>{{ Auth::user()->pseudo }}</b></a>
                         <a class = "btn btn-primary me-3" href="{{ route('changePersoInfos') }}">Change Informations</a>
                         <a class = "btn btn-danger me-3" href="{{ route('logout') }}">Logout</a>
                     @endauth
                     @guest
-                        <a class = "btn btn-primary me-3" href="{{ route('login') }}"><b>Visitor</b></a>
+                        <a class = "btn btn-primary ms-5 me-3" href="{{ route('login') }}"><b>Visitor</b></a>
                         <a class = "btn btn-primary me-3" href="{{ route('login') }}">Login</a>
                         <a class = "btn btn-info me-3" href="{{ route('register') }}">Register</a>
                     @endguest

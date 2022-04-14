@@ -21,9 +21,11 @@ Route::resource('movies', forumMoviesCRUDController::class);
 Route::get('home', [forumMoviesCRUDController::class, 'home']) -> name('home');
 
 Route::get('create', [forumMoviesCRUDController::class , 'create']) -> name('create');
-Route::get('test', [searchController::class , 'search']) -> name('search');
-Route::get('detailMovie', [searchController::class , 'detailMovie']) -> name('detailMovie');
 Route::get('edit', [forumMoviesCRUDController::class , 'edit']) -> name('edit');
+
+Route::get('searchMovie', [searchController::class , 'search']) -> name('search');
+Route::get('detailMovie', [searchController::class , 'detailMovie']) -> name('detailMovie');
+Route::get('comments', [searchController::class, 'add_comment'])->name('add.comment');
 
 Route::get('register', [userController::class, 'register'])->name('register');
 Route::post('register', [userController::class, 'register_action'])->name('register.action');
@@ -32,3 +34,5 @@ Route::post('login', [userController::class, 'login_action'])->name('login.actio
 Route::get('changePersoInfos', [userController::class, 'changePersoInfos'])->name('changePersoInfos');
 Route::post('changePersoInfos', [userController::class, 'changePersoInfos_action'])->name('changePersoInfos.action');
 Route::get('logout', [userController::class, 'logout'])->name('logout');
+
+

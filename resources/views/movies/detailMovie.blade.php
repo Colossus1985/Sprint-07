@@ -12,21 +12,13 @@
                     </div>
                     @auth
                         <div class="pull-right mb-2">
-                        <a class="btn btn-success" href="{{ route('create') }}">New Movie in detail</a>
+                        <a class="btn btn-success" href="{{ route('create') }}">Add new Movie</a>
                     </div>
                     @endauth
                 </div>
             </div>
         </div>
-        <form class="d-flex mb-4" action="{{ route('search') }}" method="GET">
-            @csrf
-            <div class="input-group">
-                <input class="form-control me-2" name="inputSearchMovie" placeholder="Search..." aria-label="Search...">
-                <button class="btn btn-outline-success ms-2" type="submit">🔎</button>
-            </div>
-        </form>
         
-        {{-- <a class = "btn btn-outline-success ms-2" href = "{{ route('search') }}">test</a> --}}
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
@@ -35,7 +27,6 @@
         
         <table class="table table-bordered">
             <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Release</th>
                 <th>Time</th>
@@ -44,11 +35,12 @@
                 <th>Poster</th>
                 <th>+ likes</th>
                 <th>- likes</th>
-                <th width="280px">Action</th>
+                @auth
+                    <th width="280px">Action</th>
+                @endauth
             </tr>
             @foreach ($movies as $movie)
             <tr>
-                <td>{{ $movie ->id }}</td>
                 <td>{{ $movie ->name }}</td>
                 <td class="text-nowrap">{{ $movie ->release }}</td>
                 <td>{{ $movie ->time }}</td>
@@ -63,12 +55,44 @@
                         <a class="btn btn-primary" href="{{ route('movies.edit', $movie->id) }}">Edit</a>
                         @csrf 
                         @method('DELETE') 
-                        <button type="submit" class="btn btn-danger">Delete</button> 
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('The Movie and all Comments will be deleted');">Delete</button> 
                     </form>
                 </td> 
                 @endauth
             </tr>
             @endforeach
         </table>
+    </div>
+    <div>
+        <h3>Comments</h3>
+        @auth
+           <div class="form-floating">
+                <form action="{{ route('add.comment', $movie->name) }}">
+                    <input type="text" name="inputMovieName" class="visually-hidden" value="{{ $movie->name }}" readonly>
+                    <textarea name="commentArea" class="form-control" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <label for="floatingTextarea2">Leave a comment here</label>
+                    <input type="submit" class="btn btn-info" value="Send Comment">
+                </form>
+            </div> 
+        @endauth
+        @guest
+            <div class="form-floating">
+                <p>To let a comment, please login!</p>
+            </div>
+        @endguest
+        
+        <div class="container-fluide">
+            @foreach ($comments as $comment)
+                <div class="container-fluide">
+                    <p>{{ $comment->comment }}</p>
+                </div>
+                <div class="container-fluide">
+                    <p>{{ $comment->created_at }}</p>
+                </div>
+                <div class="container-fluid">
+                    <p>{{ $comment->pseudo }}</p>
+                </div>
+            @endforeach
+        </div>
     </div>
 @endsection

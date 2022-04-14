@@ -12,7 +12,7 @@
                         </div>
                         @auth
                             <div class="pull-right mb-2">
-                            <a class="btn btn-success" href="{{ route('create') }}">New Movie in detail</a>
+                            <a class="btn btn-success" href="{{ route('create') }}">Add New Movie</a>
                         </div>
                         @endauth
                     </div>

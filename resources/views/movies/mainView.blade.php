@@ -7,24 +7,19 @@
                     <h2>The Movie Show</h2>
                 </div>
                 <div class="d-flex flex-row">
+                    <div class="pull-right">
+                        <a class="btn btn-primary me-3" href="{{ route('home') }}" enctype="multipart/form-data"> Back</a>
+                    </div>
                     @auth
                         <div class="pull-right mb-2">
-                        <a class="btn btn-success" href="{{ route('create') }}">New Movie in detail</a>
+                        <a class="btn btn-success" href="{{ route('create') }}">Add New Movie</a>
                     </div>
                     @endauth
                 </div>
             </div>
         </div>
-        <form class="d-flex mb-4" action="{{ route('search') }}" method="GET">
-            @csrf
-            <div class="input-group">
-                <input class="form-control me-2" name="inputSearchMovie" placeholder="Search..." aria-label="Search...">
-                <button class="btn btn-outline-success ms-2" type="submit">🔎</button>
-            </div>
-        </form>
         
-        {{-- <a class = "btn btn-outline-success ms-2" href = "{{ route('search') }}">test</a> --}}
-        @if ($message = Session::get('success'))
+         @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
             </div>
@@ -32,7 +27,6 @@
         
         <table class="table table-bordered">
             <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Release</th>
                 <th>Time</th>
@@ -41,14 +35,16 @@
                 <th>Poster</th>
                 <th>+ likes</th>
                 <th>- likes</th>
-                <th width="280px">Action</th>
+                @auth
+                   <th width="280px">Action</th> 
+                @endauth
             </tr>
             @foreach ($movies as $movie)
             <tr>
-                <td>{{ $movie ->id }}</td>
                 <td>
-                    <form action="{{ route('detailMovie', $movie->id) }}" method="GET">
-                        <input type="submit" class="form-control me-2 btn btn-info" name="inputDetailMovie" readonly value = "{{ $movie ->name }}">
+                    <form action="{{ route('detailMovie') }}" method="get">
+                        <input type="submit" class="form-control me-2 btn btn-info" name="inputDetailMovie" readonly 
+                                value = "{{ $movie->name }}">
                     </form>
                 </td>
                 <td class="text-nowrap">{{ $movie ->release }}</td>
@@ -60,7 +56,7 @@
                 <td>{{ $movie ->likemoins }}</td>
                 @auth
                     <td>
-                    <form action="{{ route('movies.destroy', $movie->id) }}" method="Post"> 
+                    <form action="{{ route('movies.destroy', $movie->id, $movie->name) }}" method="Post"> 
                         <a class="btn btn-primary" href="{{ route('movies.edit', $movie->id) }}">Edit</a>
                         @csrf 
                         @method('DELETE') 
