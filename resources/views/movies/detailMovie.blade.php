@@ -27,6 +27,7 @@
         
         <table class="table table-bordered">
             <tr>
+                <th>id</th>
                 <th>Name</th>
                 <th>Release</th>
                 <th>Time</th>
@@ -41,6 +42,7 @@
             </tr>
             @foreach ($movies as $movie)
             <tr>
+                <td>{{ $movie ->id }}</td>
                 <td>{{ $movie ->name }}</td>
                 <td class="text-nowrap">{{ $movie ->release }}</td>
                 <td>{{ $movie ->time }}</td>
@@ -51,12 +53,14 @@
                 <td>{{ $movie ->likemoins }}</td>
                 @auth
                    <td>
-                    <form action="{{ route('movies.destroy', $movie->id) }}" method="Post"> 
-                        <a class="btn btn-primary" href="{{ route('movies.edit', $movie->id) }}">Edit</a>
+                    <div class="d-flex flex-row">
+                    <form class="d-flex flex-fill" action="{{ route('movies.destroy', $movie->id) }}" method="Post"> 
+                        <a class="btn btn-primary flex-fill me-2" href="{{ route('movies.edit', $movie->id) }}">Edit</a>
                         @csrf 
-                        @method('DELETE') 
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('The Movie and all Comments will be deleted');">Delete</button> 
+                        @method('DELETE')                                      
+                        <button type="submit" class="btn btn-danger flex_fill" onclick="return confirm('The Movie and all Comments will be deleted');">Delete</button> 
                     </form>
+                    </div>
                 </td> 
                 @endauth
             </tr>
@@ -67,11 +71,16 @@
         <h3>Comments</h3>
         @auth
            <div class="form-floating">
-                <form action="{{ route('add.comment', $movie->name) }}">
+                <form action="{{ route('comments.store') }}" method="POST">
+                    @csrf
                     <input type="text" name="inputMovieName" class="visually-hidden" value="{{ $movie->name }}" readonly>
-                    <textarea name="commentArea" class="form-control" id="floatingTextarea2" style="height: 100px"></textarea>
-                    <label for="floatingTextarea2">Leave a comment here</label>
-                    <input type="submit" class="btn btn-info" value="Send Comment">
+                    <input type="text" name="inputMovieId" class="visually-hidden" value="{{ $movie->id }}" readonly>
+                    <input type="text" name="inputPseudo" class="visually-hidden" value="{{ Auth::user()->pseudo }}" readonly>
+                    <div class="form-group form-floating mb-3">
+                        <textarea type="text" name="commentArea" class="form-control" id="floatingName" maxlength="1000" style="height: 100px"></textarea>
+                        <label for="floatingName">Leave a comment here</label>
+                    </div>
+                    <button type="submit" class="form-control btn btn-info">Send Comment</button>
                 </form>
             </div> 
         @endauth
@@ -80,19 +89,40 @@
                 <p>To let a comment, please login!</p>
             </div>
         @endguest
+        @yield('content')
         
-        <div class="container-fluide">
             @foreach ($comments as $comment)
-                <div class="container-fluide">
-                    <p>{{ $comment->comment }}</p>
+            <div class="d-flex flex-column border border-3 rounded my-1">
+                <div class="d-flex flex-row justify-content-end">
+                    <div class="flex-fill">
+                        <p class="fw-lighter ">{{ $comment->created_at }}</p>
+                    </div>
+                    <div class="flex-fill">
+                        <p class="fw-lighter">{{ $comment->pseudo }}</p>
+                    </div>
+                    <div class="flex-fill">
+                        <p class="fw-lighter">{{ $comment->likeplus }}</p>
+                    </div>
+                    <div class="flex-fill">
+                        <p class="fw-lighter">{{ $comment->likemoins }}</p>
+                    </div>
                 </div>
-                <div class="container-fluide">
-                    <p>{{ $comment->created_at }}</p>
+                <div class="d-flex">
+                    <p class="overflow-hidden">{{ $comment->comment }}</p>
                 </div>
-                <div class="container-fluid">
-                    <p>{{ $comment->pseudo }}</p>
-                </div>
+                @auth
+                   <div class="d-flex flex-row justify-content-end">
+                        <form action="{{ route('comments.destroy', $comment->id) }}" method="POST"> 
+                            <input class="visually-hidden" name="inputNameMovie" value="{{ $movie->name }}">
+                            <input class="visually-hidden" name="inputIdComment" value="{{ $comment->id }}">
+                            <a class="btn btn-primary" href="{{ route('comments.edit', $comment->id) }}">Modify</a>
+                            @csrf 
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('The Comment will be deleted');">Delete</button> 
+                        </form>
+                    </div> 
+                @endauth
+            </div>
             @endforeach
-        </div>
     </div>
 @endsection

@@ -19,4 +19,7 @@ class User extends Authenticatable
         'email',
         'password'
     ];
+
+    public $timestamps = true;
+    protected $dateFormat = 'Y/m/d H:i:s';
 }

@@ -31,7 +31,8 @@ class userController extends Controller
             'pseudo' => $request -> pseudo,   
             'email' => $request -> email,  
             'password' 
-                => Hash::make($request -> password)
+                => Hash::make($request -> password),
+            'admin' => false
         ]);
         $user -> save();
         return redirect() 

@@ -43,8 +43,12 @@
             <tr>
                 <td>
                     <form action="{{ route('detailMovie') }}" method="get">
-                        <input type="submit" class="form-control me-2 btn btn-info" name="inputDetailMovie" readonly 
-                                value = "{{ $movie->name }}">
+                        <input type="text" class="visually-hidden" 
+                                name="inputMovieId"
+                                value = "{{ $movie->id }}" readonly>
+                        <input type="submit" class="form-control me-2 btn btn-info"  
+                                name="inputDetailMovie" 
+                                value = "{{ $movie->name }}" readonly>
                     </form>
                 </td>
                 <td class="text-nowrap">{{ $movie ->release }}</td>
@@ -56,11 +60,11 @@
                 <td>{{ $movie ->likemoins }}</td>
                 @auth
                     <td>
-                    <form action="{{ route('movies.destroy', $movie->id, $movie->name) }}" method="Post"> 
-                        <a class="btn btn-primary" href="{{ route('movies.edit', $movie->id) }}">Edit</a>
+                    <form action="{{ route('movies.destroy', $movie->id) }}" method="Post"> 
+                        <a class="btn btn-primary" href="{{ route('movies.edit', $movie->id) }}">Modify</a>
                         @csrf 
                         @method('DELETE') 
-                        <button type="submit" class="btn btn-danger">Delete</button> 
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('The Movie and all Comments will be deleted');">Delete</button> 
                     </form>
                 </td>
                 @endauth

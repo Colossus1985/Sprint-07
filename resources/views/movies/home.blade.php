@@ -47,31 +47,21 @@
                                 <li><a class="dropdown-item" href="#">Comedie</a></li>
                                 <li><a class="dropdown-item" href="#">Documentair</a></li>
                             </ul>
-                        <!-- <a class="navbar-brand text-white ms-3" href="modifProd.php">Series</a> -->
+
                         <a class="nav-link dropdown-toggle navbar-brand text-white ms-3" 
                         href="#" id="dropdownSerie" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Series
                         </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownSerie">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Scienc-Fiction</a></li>
-                                <li><a class="dropdown-item" href="#">Fantastic</a></li>
-                                <li><a class="dropdown-item" href="#">Romantic</a></li>
-                                <li><a class="dropdown-item" href="#">Comedie</a></li>
-                                <li><a class="dropdown-item" href="#">Documentair</a></li>
+                                <li><p>in work, be patient ;p</p></li>
                             </ul>
-                        <!-- <a class="navbar-brand text-white ms-3" href="recepProd.php">Mangas</a> -->
+                            
                         <a class="nav-link dropdown-toggle navbar-brand text-white ms-3" 
                         href="#" id="dropdownManga" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Mangas
                         </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownManga">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Scienc-Fiction</a></li>
-                                <li><a class="dropdown-item" href="#">Fantastic</a></li>
-                                <li><a class="dropdown-item" href="#">Romantic</a></li>
-                                <li><a class="dropdown-item" href="#">Comedie</a></li>
-                                <li><a class="dropdown-item" href="#">Documentair</a></li>
+                                <li><p>in work, be patient ;p</p></li>
                             </ul>
                     </div>
                 </div>
@@ -85,7 +75,6 @@
                     </form>
                     @auth
                         <a class = "btn btn-primary ms-5 me-3" href="{{ route('changePersoInfos') }}"><b>{{ Auth::user()->pseudo }}</b></a>
-                        <a class = "btn btn-primary me-3" href="{{ route('changePersoInfos') }}">Change Informations</a>
                         <a class = "btn btn-danger me-3" href="{{ route('logout') }}">Logout</a>
                     @endauth
                     @guest

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\commentsCRUDController;
 use App\Http\Controllers\forumMoviesCRUDController;
 use App\Http\Controllers\searchController;
 use App\Http\Controllers\userController;
@@ -16,16 +17,20 @@ use App\Http\Controllers\userController;
 |
 */
 
-Route::get('/', [forumMoviesCRUDController::class, 'home']);
-Route::resource('movies', forumMoviesCRUDController::class);
-Route::get('home', [forumMoviesCRUDController::class, 'home']) -> name('home');
 
+Route::resource('movies', forumMoviesCRUDController::class);
+Route::resource('comments', commentsCRUDController::class);
+
+Route::get('edit', [commentsCRUDController::class, 'edit']) -> name('edit');
+
+Route::get('/', [forumMoviesCRUDController::class, 'home']);
+Route::get('home', [forumMoviesCRUDController::class, 'home']) -> name('home');
 Route::get('create', [forumMoviesCRUDController::class , 'create']) -> name('create');
 Route::get('edit', [forumMoviesCRUDController::class , 'edit']) -> name('edit');
 
+Route::get('editComment', [searchController::class , 'editComment']) -> name('editComment');
 Route::get('searchMovie', [searchController::class , 'search']) -> name('search');
 Route::get('detailMovie', [searchController::class , 'detailMovie']) -> name('detailMovie');
-Route::get('comments', [searchController::class, 'add_comment'])->name('add.comment');
 
 Route::get('register', [userController::class, 'register'])->name('register');
 Route::post('register', [userController::class, 'register_action'])->name('register.action');
