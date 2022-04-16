@@ -124,6 +124,21 @@ class userController extends Controller
 
     public function destroy(User $user)
     {
+        $data['userAdmin'] = User::query()
+            ->where('admin', '=', 1)
+            ->get();
+
+        $countUserAdmin = count($data['userAdmin']);
+        if ($user->id == Auth::user()->id && $countUserAdmin == 1) {
+            return redirect() -> route('users')
+            -> with('success', 
+                'You\'re the last admin. This site needs at last one administrator');
+        } elseif ($user->id == Auth::user()->id && $countUserAdmin > 1) {
+            $user->delete();
+            return redirect() -> route('home')
+                -> with('success', 'Your account has been deleted successfully');
+        }
+
         $user->delete();
     
         return redirect() -> route('users')
@@ -137,6 +152,16 @@ class userController extends Controller
 
     public function update(Request $request, $id)
     {
+        $data['userAdmin'] = User::query()
+            ->where('admin', '=', 1)
+            ->get();
+            
+        $countUserAdmin = count($data['userAdmin']);
+        if ($id == Auth::user()->id && $countUserAdmin == 1) {
+            return redirect() -> route('users')
+            -> with('success', 
+                "You're the last admin. This site needs at last one administrator");
+        }
 
         $user = User::find($id);
         $user -> admin = $request -> admin;
@@ -149,8 +174,6 @@ class userController extends Controller
             return redirect() -> route('home')
             -> with('success', $user->pseudo.' is simple user now');
         }
-        
-        
     }
 
 
