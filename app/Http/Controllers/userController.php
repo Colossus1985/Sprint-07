@@ -105,19 +105,73 @@ class userController extends Controller
 
     public function users() 
     {
-        $data['users'] = User::orderBy('create_at', 'ASC')->paginate(20);
+        $data['users'] = User::orderBy('created_at', 'ASC')->paginate(20);
+
         return view('user.users', $data);
     }
 
     public function searchUser(Request $request)
     {
-        $movieSearched = trim($request -> get('inputSearchMovie'));
+        $userSearched = trim($request -> get('inputSearchUser'));
         $data['users'] = User::query()
-                ->where('pseudo', 'like', "%{$movieSearched}%")
-                ->orWhere('synopsis', 'like', "%{$movieSearched}%")
-                ->orderBy('created_at', 'desc')
+                ->where('pseudo', 'like', "%{$userSearched}%")
+                ->orWhere('email', 'like', "%{$userSearched}%")
+                ->orderBy('created_at', 'ASC')
                 ->get();
 
         return view('user.users', $data);
     }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+    
+        return redirect() -> route('users')
+            -> with('success', $user->pseudo.' has been deleted successfully');
+    }
+
+    public function edit(User $user)
+    {
+        return view('user.detailUser', compact('user'));
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        $user = User::find($id);
+        $user -> admin = $request -> admin;
+        $user -> save();
+
+        if ($user -> admin == true) {
+            return redirect() -> route('users')
+            -> with('success', $user->pseudo.' is Administrateur now');
+        } else {
+            return redirect() -> route('home')
+            -> with('success', $user->pseudo.' is simple user now');
+        }
+        
+        
+    }
+
+
+    // public function humanTiming($time)
+    // {
+    //     $time = time() - $time; // to get the time since that moment
+    //     $time = ($time<1)? 1 : $time;
+    //     $tokens = array (
+    //         31536000 => 'year',
+    //         2592000 => 'month',
+    //         604800 => 'week',
+    //         86400 => 'day',
+    //         3600 => 'hour',
+    //         60 => 'minute',
+    //         1 => 'second'
+    //     );
+                    
+    //     foreach ($tokens as $unit => $text) {
+    //         if ($time < $unit) continue;
+    //         $numberOfUnits = floor($time / $unit);
+    //         return (($numberOfUnits > 1) ?'s':'');
+    //     }   
+    // }
 }

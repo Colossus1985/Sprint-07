@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name') -> unique();
             $table->string('release');
             $table->string('time');
-            $table->string('synopsis');
+            $table->text('synopsis');
             $table->string('genre');
             $table->string('img');
             $table->integer('likeplus');

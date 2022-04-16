@@ -15,7 +15,7 @@
                             <div class="pull-right mb-2">
                                 <a class="btn btn-success" href="{{ route('create') }}">Add New Movie</a>
                             </div>
-                            <div>
+                            <div class="ms-3">
                                 <a class="btn btn-primary" href="{{ route('users') }}">Users</a>
                             </div>
                         @endif

@@ -20,6 +20,7 @@ use App\Http\Controllers\userController;
 
 Route::resource('movies', forumMoviesCRUDController::class);
 Route::resource('comments', commentsCRUDController::class);
+Route::resource('users', userController::class);
 
 Route::get('edit', [commentsCRUDController::class, 'edit']) -> name('edit');
 
@@ -40,6 +41,8 @@ Route::get('changePersoInfos', [userController::class, 'changePersoInfos'])->nam
 Route::post('changePersoInfos', [userController::class, 'changePersoInfos_action'])->name('changePersoInfos.action');
 Route::get('logout', [userController::class, 'logout'])->name('logout');
 Route::get('users', [userController::class, 'users'])->name('users');
+Route::get('searchUser', [userController::class, 'searchUser'])->name('searchUser');
+Route::get('detailUser', [userController::class, 'detailUser'])->name('detailUser');
 
 
 

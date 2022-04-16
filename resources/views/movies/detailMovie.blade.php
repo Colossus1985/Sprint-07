@@ -15,13 +15,9 @@
                             <div class="pull-right mb-2">
                                 <a class="btn btn-success" href="{{ route('create') }}">Add New Movie</a>
                             </div>
-                            <form class="d-flex me-5" action="{{ route('searchUser') }}" method="GET">
-                                @csrf
-                                <div class="input-group">
-                                    <input class="form-control me-2" name="inputSearchUser" placeholder="Search User..." aria-label="Search User...">
-                                    <button class="btn btn-outline-success ms-2" type="submit">🔎</button>
-                                </div>
-                            </form>
+                            <div class="ms-3">
+                                <a class="btn btn-primary" href="{{ route('users') }}">Users</a>
+                            </div>
                         @endif
                     @endauth
                 </div>
@@ -104,7 +100,7 @@
             <div class="d-flex flex-column border border-3 rounded my-1">
                 <div class="d-flex flex-row justify-content-end">
                     <div class="flex-fill">
-                        <p class="fw-lighter ">{{ $comment->created_at }}</p>
+                        <p class="fw-lighter ">{{ \Carbon\Carbon::parse($comment->created_at)->locale('nl')->format('d/m/Y H:i:s') }}</p>
                     </div>
                     <div class="flex-fill">
                         <p class="fw-lighter">{{ $comment->pseudo }}</p>
