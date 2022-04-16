@@ -63,7 +63,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>Synopsis:</strong>
-                            <textarea name="synopsis" rows="10" cols="70" value="{{ $movie->synopsis }}" class="form-control" placeholder="Synopsis"></textarea>
+                            <textarea name="synopsis" rows="10" cols="70" class="form-control" placeholder="Synopsis">{{ $movie->synopsis }}</textarea>
                             @error('synopsis')
                             <div class="alert alert-danger mt-1 mb-1">
                                 {{ $message }}

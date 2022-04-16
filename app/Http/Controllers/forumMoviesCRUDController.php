@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comments;
 use App\Models\Movies;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 
 
 class forumMoviesCRUDController extends Controller
@@ -135,7 +134,9 @@ class forumMoviesCRUDController extends Controller
     public function destroy(Movies $movie)
     {
         $movie->delete();
-        
+
+        DB::table('comments')->where('id_movie', '=', $movie->id)->delete();
+    
         return redirect() -> route('home')
             -> with('success', 'Movie has been deleted successfully');
     }

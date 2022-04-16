@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comments;
-use Egulias\EmailValidator\Parser\Comment;
 use Illuminate\Http\Request;
+use App\Models\Movies;
+
 
 class commentsCRUDController extends Controller
 {
@@ -51,8 +52,16 @@ class commentsCRUDController extends Controller
         $comment -> likeplus = 0;
         $comment -> likemoins = 0;
         $comment -> save();
+
+        $dataMovie['movies'] = Movies::query()
+                ->where('id', '=', $request->inputMovieId)
+                ->get();
         
-        return redirect()->back();
+        $dataComments['comments'] = Comments::query()
+                ->where('id_movie', '=', $request->inputMovieId)
+                ->get();
+                
+        return view('movies.detailMovie', $dataMovie, $dataComments);
     }
 
     /**
@@ -74,7 +83,12 @@ class commentsCRUDController extends Controller
      */
     public function edit(Comments $comment)
     {
-        return view('movies.editComment', compact('comment'));
+        // return view('movies.editComment', compact('comment'));
+        $dataMovie['movies'] = Movies::query()
+                ->where('id', '=', $comment->id_movie)
+                ->get();
+        
+        return view('movies.editComment', compact('comment'), $dataMovie);
     }
 
     /**
@@ -91,10 +105,18 @@ class commentsCRUDController extends Controller
         ]);
 
         $comment = Comments::find($id);
-        $comment -> name = $request -> commentArea;
+        $comment -> comment = $request -> commentArea;
         $comment -> save();
+
+        $dataMovie['movies'] = Movies::query()
+                ->where('id', '=', $comment->id_movie)
+                ->get();
         
-        return redirect() -> back();
+        $dataComments['comments'] = Comments::query()
+                ->where('id_movie', '=', $comment->id_movie)
+                ->get();
+                
+        return view('movies.detailMovie', $dataMovie, $dataComments);
     }
 
     /**
@@ -107,6 +129,14 @@ class commentsCRUDController extends Controller
     {
         $comment->delete();
         
-        return redirect()->back();
+        $dataMovie['movies'] = Movies::query()
+                ->where('id', '=', $comment->id_movie)
+                ->get();
+        
+        $dataComments['comments'] = Comments::query()
+                ->where('id_movie', '=', $comment->id_movie)
+                ->get();
+                
+        return view('movies.detailMovie', $dataMovie, $dataComments);
     }
 }

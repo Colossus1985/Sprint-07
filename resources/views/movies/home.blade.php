@@ -74,7 +74,9 @@
                         </div>
                     </form>
                     @auth
-                        <a class = "btn btn-primary ms-5 me-3" href="{{ route('changePersoInfos') }}"><b>{{ Auth::user()->pseudo }}</b></a>
+                        <a class = "btn btn-primary ms-5 me-3" href="{{ route('changePersoInfos') }}">
+                            <b>@if (Auth::user()->admin == 1) 👑 @endif
+                                {{ Auth::user()->pseudo }}</b></a>
                         <a class = "btn btn-danger me-3" href="{{ route('logout') }}">Logout</a>
                     @endauth
                     @guest

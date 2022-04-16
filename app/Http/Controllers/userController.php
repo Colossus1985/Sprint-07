@@ -102,4 +102,22 @@ class userController extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
+
+    public function users() 
+    {
+        $data['users'] = User::orderBy('create_at', 'ASC')->paginate(20);
+        return view('user.users', $data);
+    }
+
+    public function searchUser(Request $request)
+    {
+        $movieSearched = trim($request -> get('inputSearchMovie'));
+        $data['users'] = User::query()
+                ->where('pseudo', 'like', "%{$movieSearched}%")
+                ->orWhere('synopsis', 'like', "%{$movieSearched}%")
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+        return view('user.users', $data);
+    }
 }

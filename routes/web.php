@@ -39,5 +39,7 @@ Route::post('login', [userController::class, 'login_action'])->name('login.actio
 Route::get('changePersoInfos', [userController::class, 'changePersoInfos'])->name('changePersoInfos');
 Route::post('changePersoInfos', [userController::class, 'changePersoInfos_action'])->name('changePersoInfos.action');
 Route::get('logout', [userController::class, 'logout'])->name('logout');
+Route::get('users', [userController::class, 'users'])->name('users');
+
 
 

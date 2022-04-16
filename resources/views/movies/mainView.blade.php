@@ -11,15 +11,20 @@
                         <a class="btn btn-primary me-3" href="{{ route('home') }}" enctype="multipart/form-data"> Back</a>
                     </div>
                     @auth
-                        <div class="pull-right mb-2">
-                        <a class="btn btn-success" href="{{ route('create') }}">Add New Movie</a>
-                    </div>
+                        @if (Auth::user()->admin == true)
+                            <div class="pull-right mb-2">
+                                <a class="btn btn-success" href="{{ route('create') }}">Add New Movie</a>
+                            </div>
+                            <div>
+                                <a class="btn btn-primary" href="{{ route('users') }}">Users</a>
+                            </div>
+                        @endif
                     @endauth
                 </div>
             </div>
         </div>
         
-         @if ($message = Session::get('success'))
+        @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
             </div>
@@ -36,8 +41,11 @@
                 <th>+ likes</th>
                 <th>- likes</th>
                 @auth
-                   <th width="280px">Action</th> 
-                @endauth
+                    @if (Auth::user()->admin == true)
+                        <th width="280px">Action</th> 
+                    @endauth
+                @endif
+                   
             </tr>
             @foreach ($movies as $movie)
             <tr>
@@ -59,14 +67,16 @@
                 <td>{{ $movie ->likeplus }}</td>
                 <td>{{ $movie ->likemoins }}</td>
                 @auth
-                    <td>
-                    <form action="{{ route('movies.destroy', $movie->id) }}" method="Post"> 
-                        <a class="btn btn-primary" href="{{ route('movies.edit', $movie->id) }}">Modify</a>
-                        @csrf 
-                        @method('DELETE') 
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('The Movie and all Comments will be deleted');">Delete</button> 
-                    </form>
-                </td>
+                    @if (Auth::user()->admin == true)
+                        <td>
+                            <form action="{{ route('movies.destroy', $movie->id) }}" method="Post"> 
+                                <a class="btn btn-primary" href="{{ route('movies.edit', $movie->id) }}">Modify</a>
+                                @csrf 
+                                @method('DELETE') 
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('The Movie and all Comments will be deleted');">Delete</button> 
+                            </form>
+                        </td>
+                    @endif
                 @endauth
             </tr>
             @endforeach
