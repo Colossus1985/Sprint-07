@@ -115,8 +115,7 @@ class commentsCRUDController extends Controller
                 ->where('id_movie', '=', $comment->id_movie)
                 ->get();
                 
-        // return view('movies.detailMovie', $dataMovie, $dataComments);
-        return redirect()->back();
+        return view('movies.detailMovie', $dataMovie, $dataComments);
     }
 
     /**
@@ -137,7 +136,7 @@ class commentsCRUDController extends Controller
                 ->where('id_movie', '=', $comment->id_movie)
                 ->get();
                 
-        // return view('movies.detailMovie', $dataMovie, $dataComments);
-        return redirect()->back();
+        return view('movies.detailMovie', $dataMovie, $dataComments);
+        // return redirect()->back();
     }
 }

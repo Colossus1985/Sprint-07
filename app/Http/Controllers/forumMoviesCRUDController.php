@@ -145,6 +145,10 @@ class forumMoviesCRUDController extends Controller
         return redirect() -> route('home')
             -> with('success', 'Movie Has Been updated successfully');
     }
+
+
+
+//######---home.php---#################################################   
     public function updateLikePlus(Request $request, $id)
     {
         $checkLike = DB::table('likes')
@@ -201,6 +205,90 @@ class forumMoviesCRUDController extends Controller
 
         return redirect() -> back();
     }
+//######---detailMovie.php---#################################################   
+public function updateLikePlusDetailMovie(Request $request, $id)
+{
+    $dataMovie['movies'] = Movies::query()
+                ->where('id', '=', $id)
+                ->get();
+        
+    $dataComments['comments'] = Comments::query()
+                ->where('id_movie', '=', $id)
+                ->get();
+
+    $checkLike = DB::table('likes')
+        ->where('pseudo', '=', Auth::user()->pseudo)
+        ->where('id_movie', '=', $id)
+        ->where('likeplus', '=', true)
+        ->get();
+        
+    if (count($checkLike) > 0) {
+        $message = 'You\'ve already liked this movie.';
+        return view('movies.detailMovie', $dataMovie, $dataComments)
+            ->with('success', 'You\'ve already liked this movie.');
+    }
+
+    $likesPlusOld = trim($request->get('likePlusOld'));
+    $likesPlusNew = $likesPlusOld + 1;
+
+    DB::table('movies')
+        ->where('id', '=', $id)
+        ->update(['likeplus' => $likesPlusNew]);
+    
+    DB::table('likes')->insert([
+            'id_movie' => $id,
+            'pseudo' => Auth::user()->pseudo,
+            'likeplus' => true,
+        ]);
+
+    return view('movies.detailMovie', $dataMovie, $dataComments);
+}
+
+
+public function updateLikeMoinsDetailMovie(Request $request, $id)
+{   
+    $dataMovie['movies'] = Movies::query()
+        ->where('id', '=', $id)
+        ->get();
+
+    $dataComments['comments'] = Comments::query()
+        ->where('id_movie', '=', $id)
+        ->get();
+
+    $checkLike = DB::table('likes')
+        ->where('pseudo', '=', Auth::user()->pseudo)
+        ->where('id_movie', '=', $id)
+        ->where('likemoins', '=', true)
+        ->get();
+        
+    if (count($checkLike) > 0) {
+        $message = 'You\'ve already disliked this movie.';
+        return view('movies.detailMovie', $dataMovie, $dataComments, compact('message'));
+    }
+
+    $likeMoinsOld = trim($request->get('likeMoinsOld'));
+    $likeMoinsNew = $likeMoinsOld + 1;
+
+    DB::table('movies')
+        ->where('id', '=', $id)
+        ->update(['likemoins' => $likeMoinsNew]);
+    
+    DB::table('likes')->insert([
+            'id_movie' => $id,
+            'pseudo' => Auth::user()->pseudo,
+            'likemoins' => true,
+        ]);
+
+    return view('movies.detailMovie', $dataMovie, $dataComments);
+}
+
+
+
+
+
+
+
+
     /**
     * Remove the specified resource from storage.
     *

@@ -29,6 +29,11 @@
                 <p>{{ $message }}</p>
             </div>
         @endif
+        @if ($message != null || $message !='')
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+        @endif
         
         <table class="table table-bordered">
             <tr>
@@ -54,8 +59,30 @@
                 <td>{{ $movie ->synopsis }}</td>
                 <td>{{ $movie ->genre }}</td>
                 <td>{{ $movie ->img }}</td>
-                <td>{{ $movie ->likeplus }}</td>
-                <td>{{ $movie ->likemoins }}</td>
+                <td class="">
+                    {{ $movie ->likeplus }}
+                    <form class="ms-3" action="{{ route('updateLikePlusDetailMovie', $movie->id) }}" method="GET">
+                        <input class="visually-hidden" name="likePlusOld" value="{{ $movie ->likeplus }}" readonly>
+                        @guest
+                            <p>👍</p>
+                        @endguest
+                        @auth
+                            <button class="btn" tupe="submit" name="likePlus" readonly>👍</button>
+                        @endauth 
+                    </form>
+                </td>
+                <td class="">
+                    {{ $movie ->likemoins }}
+                    <form class="ms-3" action="{{ route('updateLikeMoinsDetailMovie', $movie->id) }}" method="GET">
+                        <input class="visually-hidden" name="likeMoinsOld" value="{{ $movie ->likemoins }}" readonly>
+                        @guest
+                            <p>👎</p>
+                        @endguest
+                        @auth
+                           <button class="btn"  type="submit" name="likeMoins" readonly>👎</button>
+                        @endauth
+                    </form>
+                </td>
                 @auth
                     @if (Auth::user()->admin == true)
                         <td>
@@ -74,7 +101,11 @@
             @endforeach
         </table>
     </div>
-    <div>
+    <div>@if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+        @endif
         <h3>Comments</h3>
         @auth
             <div class="form-floating">

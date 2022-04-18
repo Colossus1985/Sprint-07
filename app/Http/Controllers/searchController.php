@@ -40,7 +40,7 @@ class searchController extends Controller
     */ 
     public function detailMovie(Request $request)
     {
-          
+        $message = '';
         $id_movie = trim($request -> get('inputMovieId'));
         $nameMovie = trim($request -> get('inputDetailMovie'));
         
@@ -52,6 +52,6 @@ class searchController extends Controller
                 ->where('id_movie', '=', $id_movie)
                 ->get();
 
-        return view('movies.detailMovie', $dataMovie, $dataComments);
+        return view('movies.detailMovie', $dataMovie, $dataComments, compact('message'));
     }
 }
