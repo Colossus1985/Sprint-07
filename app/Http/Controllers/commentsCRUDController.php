@@ -83,7 +83,6 @@ class commentsCRUDController extends Controller
      */
     public function edit(Comments $comment)
     {
-        // return view('movies.editComment', compact('comment'));
         $dataMovie['movies'] = Movies::query()
                 ->where('id', '=', $comment->id_movie)
                 ->get();
@@ -116,7 +115,8 @@ class commentsCRUDController extends Controller
                 ->where('id_movie', '=', $comment->id_movie)
                 ->get();
                 
-        return view('movies.detailMovie', $dataMovie, $dataComments);
+        // return view('movies.detailMovie', $dataMovie, $dataComments);
+        return redirect()->back();
     }
 
     /**
@@ -137,6 +137,7 @@ class commentsCRUDController extends Controller
                 ->where('id_movie', '=', $comment->id_movie)
                 ->get();
                 
-        return view('movies.detailMovie', $dataMovie, $dataComments);
+        // return view('movies.detailMovie', $dataMovie, $dataComments);
+        return redirect()->back();
     }
 }

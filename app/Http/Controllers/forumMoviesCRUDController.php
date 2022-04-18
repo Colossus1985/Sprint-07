@@ -28,13 +28,15 @@ class forumMoviesCRUDController extends Controller
         if ($genre == 'all') 
         {
             $data['movies'] = Movies::orderBy('id','desc')->paginate(1000);
-            return view('movies.mainView', $data);
+            return view('movies.mainView', $data, compact('genre'));
         } else {
             $data['movies'] = Movies::query()
                 ->where('genre', '=', $genre)
                 ->orderBy('id','desc')
                 ->get();
-            return view('movies.mainView', $data);
+            
+            return view('movies.mainView', $data, compact('genre'));
+                
         }
         
     }
@@ -213,5 +215,24 @@ class forumMoviesCRUDController extends Controller
     
         return redirect() -> route('home')
             -> with('success', 'Movie has been deleted successfully');
+    }
+
+    public function filterMovie(Request $request, $filter) 
+    {
+        $directFilter = trim($request->get('inputDirectFilter')); 
+        $genre = trim($request->get('inputGenre'));
+
+        if ($genre == 'all') {
+            $data['movies'] = Movies::query()
+            ->orderBy($filter, $directFilter)
+            ->get();
+        } else {
+            $data['movies'] = Movies::query()
+            ->where('genre', '=', $genre)
+            ->orderBy($filter, $directFilter)
+            ->get();
+        }
+        
+        return view('movies.mainView', $data, compact('genre'));
     }
 }

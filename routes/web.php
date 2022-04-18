@@ -31,6 +31,7 @@ Route::get('create', [forumMoviesCRUDController::class , 'create']) -> name('cre
 Route::get('edit', [forumMoviesCRUDController::class , 'edit']) -> name('edit');
 Route::get('updateLikePlus/{id}', [forumMoviesCRUDController::class , 'updateLikePlus']) -> name('updateLikePlus');
 Route::get('updateLikeMoins/{id}', [forumMoviesCRUDController::class , 'updateLikeMoins']) -> name('updateLikeMoins');
+Route::get('filterMovie/{filter}', [forumMoviesCRUDController::class , 'filterMovie']) -> name('filterMovie');
 
 Route::get('editComment', [searchController::class , 'editComment']) -> name('editComment');
 Route::get('searchMovie', [searchController::class , 'search']) -> name('search');

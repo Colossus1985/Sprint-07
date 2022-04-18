@@ -17,6 +17,7 @@ class searchController extends Controller
     public function search(Request $request)
     // public function search()
     {
+        $genre = 'all';
         $movieSearched = trim($request -> get('inputSearchMovie'));
         $data['movies'] = Movies::query()
                 ->where('name', 'like', "%{$movieSearched}%")
@@ -24,12 +25,12 @@ class searchController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->get();
 
-        return view('movies.mainView', $data);
+        return view('movies.mainView', $data, compact('genre'));
     }
-    public function searchback()
-    {
-        return view('movies.home');
-    }
+    // public function searchback()
+    // {
+    //     return view('movies.home');
+    // }
 
     /**
     * Display one movie by id.

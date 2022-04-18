@@ -21,22 +21,34 @@
                         @endif
                     @endauth
                     <div class="d-flex flex-row flex-wrap">
-                        <form  class="me-2 mb-2" action="" method="GET">
-                            <button name="A-Z" type="submit" class="btn btn-dark" value="">Name A-Z</button>
+                        <form  class="me-2 mb-2" action="{{ route('filterMovie', 'name') }}" method="GET">
+                            <input class="visually-hidden" name="inputDirectFilter" value="asc" readonly>
+                            <input class="visually-hidden" name="inputGenre" value="{{ $genre }}" readonly>
+                            <button type="submit" class="btn btn-dark">Name A-Z</button>
                         </form>
-                        <form class="me-2 mb-2" action="" method="GET">
-                            <button name="Z-A" type="submit" class="btn btn-dark" value="">Name Z-A</button>
+                        <form class="me-2 mb-2" action="{{ route('filterMovie', 'name') }}" method="GET">
+                            <input class="visually-hidden" name="inputDirectFilter" value="desc" readonly>
+                            <input class="visually-hidden" name="inputGenre" value="{{ $genre }}" readonly>
+                            <button type="submit" class="btn btn-dark" value="">Name Z-A</button>
                         </form>
-                        <form class="me-2 mb-2" action="" method="GET">
+                        <form class="me-2 mb-2" action="{{ route('filterMovie', 'release') }}" method="GET">
+                            <input class="visually-hidden" name="inputDirectFilter" value="asc" readonly>
+                            <input class="visually-hidden" name="inputGenre" value="{{ $genre }}" readonly>
                             <button name="new-old" type="submit" class="btn btn-dark" value="">Release new-old</button>
                         </form>
-                        <form class="me-2 mb-2" action="" method="GET">
+                        <form class="me-2 mb-2" action="{{ route('filterMovie', 'release') }}" method="GET">
+                            <input class="visually-hidden" name="inputDirectFilter" value="desc" readonly> 
+                            <input class="visually-hidden" name="inputGenre" value="{{ $genre }}" readonly> 
                             <button name="old-new" type="submit" class="btn btn-dark" value="">Release old-new</button>
                         </form>
-                        <form class="me-2 mb-2" action="" method="GET">
+                        <form class="me-2 mb-2" action="{{ route('filterMovie', 'likeplus') }}" method="GET">
+                            <input class="visually-hidden" name="inputDirectFilter" value="desc" readonly>
+                            <input class="visually-hidden" name="inputGenre" value="{{ $genre }}" readonly>
                             <button name="likePlus" type="submit" class="btn btn-dark" value="">Like +</button>
                         </form>
-                        <form class="me-2 mb-2" action="" method="GET">
+                        <form class="me-2 mb-2" action="{{ route('filterMovie', 'likemoins') }}" method="GET">
+                            <input class="visually-hidden" name="inputDirectFilter" value="desc" readonly>
+                            <input class="visually-hidden" name="inputGenre" value="{{ $genre }}" readonly>
                             <button name="likeMoins" type="submit" class="btn btn-dark" value="">Like -</button>
                         </form>
                         
@@ -47,9 +59,12 @@
         
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
-                <p>{{ $message }}</p>
+                <p>ici:[{{ $message }}]</p>
             </div>
         @endif
+        {{-- <div class="alert alert-success">
+            <p>ici:[{{ $genre }}]</p>
+        </div> --}}
         
         <table class="table table-bordered">
             <tr>
