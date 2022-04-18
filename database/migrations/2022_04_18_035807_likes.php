@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('id_movie')->nullable();
             $table->integer('id_comment')->nullable();
             $table->string('pseudo');
-            $table->boolean('likeplus');
-            $table->boolean('likemoins');
+            $table->boolean('likeplus')->nullable();
+            $table->boolean('likemoins')->nullable();
             $table->timestamps();
             
         $table->foreign('id_movie')->references('id')->on('movies');

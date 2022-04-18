@@ -34,7 +34,6 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="mt-1 d-flex justify-content-start">
-                        <!-- <a class="navbar-brand text-white" href="viewStock.php">Movies</a> -->
                         <a class="nav-link dropdown-toggle navbar-brand text-white ms-3"
                         href="#" id="dropdownFilm" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Movies
@@ -66,21 +65,21 @@
                     </div>
                 </div>
                 <div class="d-flex flex-row">
-                    <form class="d-flex me-5" action="{{ route('search') }}" method="GET">
+                    <form class="d-flex me-3" action="{{ route('search') }}" method="GET">
                         @csrf
-                        <div class="input-group">
-                            <input class="form-control me-2" name="inputSearchMovie" placeholder="Search..." aria-label="Search...">
-                            <button class="btn btn-outline-success ms-2" type="submit">🔎</button>
+                        <div class="input-group d-flex flex-nowrap">
+                            <input class="form-control me-1" name="inputSearchMovie" placeholder="Search..." aria-label="Search...">
+                            <button class="btn btn-outline-success ms-1" type="submit">🔎</button>
                         </div>
                     </form>
                     @auth
-                        <a class = "btn btn-primary ms-5 me-3" href="{{ route('changePersoInfos') }}">
+                        <a class = "btn btn-primary ms-3 me-3 text-nowrap" href="{{ route('changePersoInfos') }}">
                             <b>@if (Auth::user()->admin == 1) 👑 @endif
                                 {{ Auth::user()->pseudo }}</b></a>
                         <a class = "btn btn-danger me-3" href="{{ route('logout') }}">Logout</a>
                     @endauth
                     @guest
-                        <a class = "btn btn-primary ms-5 me-3" href="{{ route('login') }}"><b>Visitor</b></a>
+                        <a class = "btn btn-primary mx-3" href="{{ route('login') }}"><b>Visitor</b></a>
                         <a class = "btn btn-primary me-3" href="{{ route('login') }}">Login</a>
                         <a class = "btn btn-info me-3" href="{{ route('register') }}">Register</a>
                     @endguest
