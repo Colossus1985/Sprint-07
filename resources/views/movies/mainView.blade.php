@@ -47,6 +47,18 @@
                 @endif
                    
             </tr>
+            @if (count($movies) == 0) 
+                <div>
+                    <p class="alert alert-danger">Sorry there are no movis at this kind yet</p>
+                </div>
+            @endif
+            
+            {{-- <pre>
+                <?php
+                    print_r($movies);
+                ?>
+            </pre> --}}
+            
             @foreach ($movies as $movie)
             <tr>
                 <td>
@@ -64,8 +76,30 @@
                 <td>{{ $movie ->synopsis }}</td>
                 <td>{{ $movie ->genre }}</td>
                 <td>{{ $movie ->img }}</td>
-                <td>{{ $movie ->likeplus }}</td>
-                <td>{{ $movie ->likemoins }}</td>
+                <td class="">
+                    {{ $movie ->likeplus }}
+                    <form class="ms-3" action="{{ route('updateLikePlus', $movie->id) }}" method="GET">
+                        <input class="visually-hidden" name="likePlusOld" value="{{ $movie ->likeplus }}" readonly>
+                        @guest
+                            <p>👍</p>
+                        @endguest
+                        @auth
+                            <button class="btn" tupe="submit" name="likePlus" readonly>👍</button>
+                        @endauth 
+                    </form>
+                </td>
+                <td class="">
+                    {{ $movie ->likemoins }}
+                    <form class="ms-3" action="{{ route('updateLikeMoins', $movie->id) }}" method="GET">
+                        <input class="visually-hidden" name="likeMoinsOld" value="{{ $movie ->likemoins }}" readonly>
+                        @guest
+                            <p>👎</p>
+                        @endguest
+                        @auth
+                           <button class="btn"  type="submit" name="likeMoins" readonly>👎</button>
+                        @endauth
+                         
+                    </form></td>
                 @auth
                     @if (Auth::user()->admin == true)
                         <td>

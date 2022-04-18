@@ -13,18 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('likes', function (Blueprint $table) {
             $table->id();
-            $table->string('id_movie');
-            $table->string('name_movie');
+            $table->integer('id_movie')->nullable();
+            $table->integer('id_comment')->nullable();
             $table->string('pseudo');
-            $table->string('comment');
-            $table->integer('likeplus');
-            $table->integer('likemoins');
+            $table->boolean('likeplus');
+            $table->boolean('likemoins');
             $table->timestamps();
-
-            $table->foreign('id_movie')->references('id')->on('movies');
+            
+        $table->foreign('id_movie')->references('id')->on('movies');
+        $table->foreign('id_comment')->references('id')->on('comments');
         });
+
+        
     }
 
     /**
@@ -34,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+    
     }
 };

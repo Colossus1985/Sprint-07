@@ -1,6 +1,6 @@
 @extends('movies.home')
 @section('content')
-        <div class="container mt-5">
+        <div class="container">
             <div class="row pt-4">
                 <div class="col-lg-12 margin-tb">
                     <div class="pull-left mb-2">
@@ -13,6 +13,7 @@
                     </div>
                 </div>
             </div>
+            
             @if(session('status'))
                 <div class="alert alert-success mb-1 mt-1">
                     {{ session('status') }}
@@ -55,22 +56,45 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="flex-fill ms-2">
-                            <div class="form-group">
-                                <strong>Genre:</strong>
-                                <input type="text" name="genre" class="form-control" placeholder="Genre">
-                                @error('genre')
+                    </div>
+                    <div class = "form-group d-flex flex-column flex-wrap">
+                        <strong>Genre:</strong>
+                        <div class="d-flex flex-row flex-wrap flex-fill">
+                            <div class = "flex-fill">
+                                <input type="radio" name = "genre" value="Action" class="btn-check" id="btn-check-outlined-Action" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btn-check-outlined-Action">Action</label><br>
+                            </div> 
+                            <div class = "flex-fill">
+                                <input type="radio" name = "genre" value="Scienc-Fiction" class="btn-check" id="btn-check-outlined-Scienc-Fiction" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btn-check-outlined-Scienc-Fiction">Scienc-Fiction</label><br>
+                            </div> 
+                            <div class = "flex-fill">
+                                <input type="radio" name = "genre" value="Fantasy" class="btn-check" id="btn-check-outlined-Fantasy" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btn-check-outlined-Fantasy">Fantasy</label><br>
+                            </div> 
+                            <div class = "flex-fill">
+                                <input type="radio" name = "genre" value="Romance" class="btn-check" id="btn-check-outlined-Romance" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btn-check-outlined-Romance">Romance</label><br>
+                            </div> 
+                            <div class = "flex-fill">
+                                <input type="radio" name = "genre" value="Comedy" class="btn-check" id="btn-check-outlined-Comedy" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btn-check-outlined-Comedy">Comedy</label><br>
+                            </div> 
+                             <div class = "flex-fill">
+                                <input type="radio" name = "genre" value="Docu" class="btn-check" id="btn-check-outlined-Docu" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btn-check-outlined-Docu">Docu</label><br>
+                            </div> 
+                            @error('genre')
                                 <div class="alert alert-danger mt-1 mb-1">
                                     {{ $message }}
                                 </div>
-                                @enderror
-                            </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>Synopsis:</strong>
-                            <textarea name="synopsis" rows="10" cols="70" class="form-control" placeholder="Synopsis"></textarea>
+                            <textarea name="synopsis" rows="7" cols="20" class="form-control" placeholder="Synopsis"></textarea>
                             @error('synopsis')
                             <div class="alert alert-danger mt-1 mb-1">
                                 {{ $message }}

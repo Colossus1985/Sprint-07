@@ -39,29 +39,29 @@
                         href="#" id="dropdownFilm" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Movies
                         </a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownFilm">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Scienc-Fiction</a></li>
-                                <li><a class="dropdown-item" href="#">Fantastic</a></li>
-                                <li><a class="dropdown-item" href="#">Romantic</a></li>
-                                <li><a class="dropdown-item" href="#">Comedie</a></li>
-                                <li><a class="dropdown-item" href="#">Documentair</a></li>
+                            <ul class="dropdown-menu ms-4 px-4 bg-info " aria-labelledby="dropdownFilm">
+                                <li class="list-inline-item"><a class="dropdown-item" href="{{ route('home', 'Action') }}">Action</a></li>
+                                <li class="list-inline-item"><a class="dropdown-item" href="{{ route('home', 'Scienc-Fiction') }}">Scienc-Fiction</a></li>
+                                <li class="list-inline-item"><a class="dropdown-item" href="{{ route('home', 'Fantasy') }}">Fantasy</a></li>
+                                <li class="list-inline-item"><a class="dropdown-item" href="{{ route('home', 'Romance') }}">Romance</a></li>
+                                <li class="list-inline-item"><a class="dropdown-item" href="{{ route('home', 'Comedy') }}">Comedy</a></li>
+                                <li class="list-inline-item"><a class="dropdown-item" href="{{ route('home', 'Docu') }}">Docu</a></li>
                             </ul>
 
                         <a class="nav-link dropdown-toggle navbar-brand text-white ms-3" 
                         href="#" id="dropdownSerie" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Series
                         </a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownSerie">
-                                <li><p>in work, be patient ;p</p></li>
+                            <ul class="dropdown-menu ms-4 px-4 bg-info" aria-labelledby="dropdownSerie">
+                                <li class="list-inline-item"><p>in work, be patient ;p</p></li>
                             </ul>
                             
                         <a class="nav-link dropdown-toggle navbar-brand text-white ms-3" 
                         href="#" id="dropdownManga" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Mangas
                         </a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownManga">
-                                <li><p>in work, be patient ;p</p></li>
+                            <ul class="dropdown-menu ms-4 px-4 bg-info" aria-labelledby="dropdownManga">
+                                <li class="list-inline-item"><p>in work, be patient ;p</p></li>
                             </ul>
                     </div>
                 </div>
