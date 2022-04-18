@@ -148,7 +148,7 @@ class forumMoviesCRUDController extends Controller
         $checkLike = DB::table('likes')
             ->where('pseudo', '=', Auth::user()->pseudo)
             ->where('id_movie', '=', $id)
-            ->where('likeplus', '=', 1)
+            ->where('likeplus', '=', true)
             ->get();
             
         if (count($checkLike) > 0) {
@@ -162,17 +162,40 @@ class forumMoviesCRUDController extends Controller
         DB::table('movies')
             ->where('id', '=', $id)
             ->update(['likeplus' => $likesPlusNew]);
+        
+        DB::table('likes')->insert([
+                'id_movie' => $id,
+                'pseudo' => Auth::user()->pseudo,
+                'likeplus' => true,
+            ]);
 
         return redirect() -> back();
     }
     public function updateLikeMoins(Request $request, $id)
     {
-        $likesMoinsOld = trim($request->get('likeMoinsOld'));
-        $likesMoinsNew = $likesMoinsOld + 1;
+        $checkLike = DB::table('likes')
+            ->where('pseudo', '=', Auth::user()->pseudo)
+            ->where('id_movie', '=', $id)
+            ->where('likemoins', '=', true)
+            ->get();
+            
+        if (count($checkLike) > 0) {
+            return redirect() -> back()
+                ->with('success', 'You\'ve already disliked this movie.');
+        }
+
+        $likeMoinsOld = trim($request->get('likeMoinsOld'));
+        $likeMoinsNew = $likeMoinsOld + 1;
 
         DB::table('movies')
             ->where('id', '=', $id)
-            ->update(['likemoins' => $likesMoinsNew]);
+            ->update(['likemoins' => $likeMoinsNew]);
+        
+        DB::table('likes')->insert([
+                'id_movie' => $id,
+                'pseudo' => Auth::user()->pseudo,
+                'likemoins' => true,
+            ]);
 
         return redirect() -> back();
     }
