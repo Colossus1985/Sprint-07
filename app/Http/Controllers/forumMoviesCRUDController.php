@@ -151,13 +151,19 @@ class forumMoviesCRUDController extends Controller
 //######---home.php---#################################################   
     public function updateLikePlus(Request $request, $id)
     {
-        $checkLike = DB::table('likes')
+        $checkLikePlus = DB::table('likes')
             ->where('pseudo', '=', Auth::user()->pseudo)
             ->where('id_movie', '=', $id)
             ->where('likeplus', '=', true)
             ->get();
             
-        if (count($checkLike) > 0) {
+        $checkLikeMoins = DB::table('likes')
+        ->where('pseudo', '=', Auth::user()->pseudo)
+        ->where('id_movie', '=', $id)
+        ->where('likemoins', '=', true)
+        ->get();
+            
+        if (count($checkLikePlus) > 0 || count($checkLikeMoins) > 0){
             return redirect() -> back()
                 ->with('success', 'You\'ve already liked this movie.');
         }
@@ -173,19 +179,28 @@ class forumMoviesCRUDController extends Controller
                 'id_movie' => $id,
                 'pseudo' => Auth::user()->pseudo,
                 'likeplus' => true,
+                
             ]);
 
         return redirect() -> back();
     }
     public function updateLikeMoins(Request $request, $id)
     {
-        $checkLike = DB::table('likes')
+        $checkLikePlus = DB::table('likes')
+            ->where('pseudo', '=', Auth::user()->pseudo)
+            ->where('id_movie', '=', $id)
+            ->where('likeplus', '=', true)
+            
+            ->get();
+
+            $checkLikeMoins = DB::table('likes')
             ->where('pseudo', '=', Auth::user()->pseudo)
             ->where('id_movie', '=', $id)
             ->where('likemoins', '=', true)
+            
             ->get();
             
-        if (count($checkLike) > 0) {
+        if (count($checkLikePlus) > 0 || count($checkLikeMoins) > 0) {
             return redirect() -> back()
                 ->with('success', 'You\'ve already disliked this movie.');
         }
@@ -216,17 +231,23 @@ public function updateLikePlusDetailMovie(Request $request, $id)
                 ->where('id_movie', '=', $id)
                 ->get();
 
-    $checkLike = DB::table('likes')
+    $checkLikePlus = DB::table('likes')
         ->where('pseudo', '=', Auth::user()->pseudo)
         ->where('id_movie', '=', $id)
         ->where('likeplus', '=', true)
         ->get();
-        
-    if (count($checkLike) > 0) {
-        $message = 'You\'ve already liked this movie.';
+                
+    $checkLikeMoins = DB::table('likes')
+        ->where('pseudo', '=', Auth::user()->pseudo)
+        ->where('id_movie', '=', $id)
+        ->where('likemoins', '=', true)
+        ->get();
+                
+    if (count($checkLikePlus) > 0 || count($checkLikeMoins) > 0){
         return view('movies.detailMovie', $dataMovie, $dataComments)
-            ->with('success', 'You\'ve already liked this movie.');
+        ->with('success', 'You\'ve already liked this movie.');
     }
+        
 
     $likesPlusOld = trim($request->get('likePlusOld'));
     $likesPlusNew = $likesPlusOld + 1;
@@ -255,16 +276,24 @@ public function updateLikeMoinsDetailMovie(Request $request, $id)
         ->where('id_movie', '=', $id)
         ->get();
 
-    $checkLike = DB::table('likes')
+    $checkLikePlus = DB::table('likes')
+        ->where('pseudo', '=', Auth::user()->pseudo)
+        ->where('id_movie', '=', $id)
+        ->where('likeplus', '=', true)
+        ->get();
+                
+    $checkLikeMoins = DB::table('likes')
         ->where('pseudo', '=', Auth::user()->pseudo)
         ->where('id_movie', '=', $id)
         ->where('likemoins', '=', true)
         ->get();
-        
-    if (count($checkLike) > 0) {
+                
+    if (count($checkLikePlus) > 0 || count($checkLikeMoins) > 0){
         $message = 'You\'ve already disliked this movie.';
         return view('movies.detailMovie', $dataMovie, $dataComments, compact('message'));
     }
+        
+    
 
     $likeMoinsOld = trim($request->get('likeMoinsOld'));
     $likeMoinsNew = $likeMoinsOld + 1;
