@@ -128,19 +128,39 @@
             </div>
         @endguest
         @foreach ($comments as $comment)
-            <div class="d-flex flex-column border border-3 rounded my-1">
+            <div class="d-flex flex-column border border-3 rounded my-1 px-2 pb-2">
                 <div class="d-flex flex-row justify-content-end">
                     <div class="flex-fill">
-                        <p class="fw-lighter ">{{ \Carbon\Carbon::parse($comment->created_at)->locale('nl')->format('d/m/Y H:i:s') }}</p>
+                        <p class="mb-0 fw-lighter ">{{ \Carbon\Carbon::parse($comment->created_at)->locale('nl')->format('d/m/Y H:i:s') }}</p>
                     </div>
                     <div class="flex-fill">
-                        <p class="fw-lighter">{{ $comment->pseudo }}</p>
+                        <p class="mb-0 fw-lighter">{{ $comment->pseudo }}</p>
                     </div>
-                    <div class="flex-fill">
-                        <p class="fw-lighter">{{ $comment->likeplus }}</p>
+                    <div class="d-flex flex-fill flex-row">
+                        <form class="ms-3" action="{{ route('updateLikePlusComment', $comment->id) }}" method="GET">
+                            <input class="visually-hidden" name="likePlusOld" value="{{ $comment ->likeplus }}" readonly>
+                            <input class="visually-hidden" name="inputIdMovie" value="{{ $movie->id }}" readonly>
+                            @guest
+                                <p>👍</p>
+                            @endguest
+                            @auth
+                            <button class="btn"  type="submit" name="likeMoins" readonly>👍</button>
+                            @endauth
+                        </form>
+                        <p class="mb-0 fw-lighter">{{ $comment->likeplus }}</p>
                     </div>
-                    <div class="flex-fill">
-                        <p class="fw-lighter">{{ $comment->likemoins }}</p>
+                    <div class="d-flex flex-fill flex-row">
+                        <form class="ms-3" action="{{ route('updateLikeMoinsComment', $comment->id) }}" method="GET">
+                            <input class="visually-hidden" name="likeMoinsOld" value="{{ $comment ->likemoins }}" readonly>
+                            <input class="visually-hidden" name="inputIdMovie" value="{{ $movie->id }}" readonly>
+                            @guest
+                                <p>👎</p>
+                            @endguest
+                            @auth
+                               <button class="btn"  type="submit" name="likeMoins" readonly>👎</button>
+                            @endauth
+                        </form>
+                        <p class="mb-0 fw-lighter">{{ $comment->likemoins }}</p>
                     </div>
                 </div>
                 <div class="d-flex">

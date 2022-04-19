@@ -5,6 +5,7 @@ use App\Http\Controllers\commentsCRUDController;
 use App\Http\Controllers\forumMoviesCRUDController;
 use App\Http\Controllers\searchController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\likeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,9 @@ use App\Http\Controllers\userController;
 Route::resource('movies', forumMoviesCRUDController::class);
 Route::resource('comments', commentsCRUDController::class);
 Route::resource('users', userController::class);
+
+Route::get('updateLikePlusComment/{id_comment}', [likeController::class, 'updateLikePlusComment'])->name('updateLikePlusComment');
+Route::get('updateLikeMoinsComment/{id_comment}', [likeController::class, 'updateLikeMoinsComment'])->name('updateLikeMoinsComment');
 
 Route::get('edit', [commentsCRUDController::class, 'edit']) -> name('edit');
 
