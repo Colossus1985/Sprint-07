@@ -28,6 +28,8 @@
         <table class="table table-bordered">
             <tr>
                 <th>Pseudo</th>
+                <th>Comments</th>
+                <th>Likes</th>
                 <th>Registerd</th>
                 <th>E-mail</th>
                 <th>First Name</th>
@@ -48,6 +50,10 @@
                                 value = "{{ $user->pseudo }}" readonly>
                     </form>
                 </td>
+                <td>NA</td>
+                <td>NA</td>
+                {{-- <td>{{ $user ->count('likes.pseudo') }}</td>
+                <td>{{ $user ->count('comments.pseudo') }}</td> --}}
                 <td>{{ \Carbon\Carbon::parse($user->created_at)->locale('nl')->format('d/m/Y H:i:s') }}</td> 
                 <td>{{ $user ->email }}</td>
                 <td>{{ $user ->firstName }}</td>

@@ -108,6 +108,14 @@ class userController extends Controller
     {
         $data['users'] = User::orderBy('created_at', 'ASC')->paginate(20);
 
+        // $data['users'] = User::query()
+        //     ->join('comments', 'users.pseudo', '=', 'comments.pseudo')
+        //     ->join('likes', 'user.pseudo', '=', 'likes.pseudo')
+        //     ->select('*')
+        //     ->count('likes.pseudo')
+        //     ->count('comments.pseudo')
+        //     ->get();
+
         return view('user.users', $data);
     }
 

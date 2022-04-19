@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('likemoins');
             $table->timestamps();
 
-            $table->foreign('id_movie')->references('id')->on('movies');
+            // $table->foreign('id_movie')->references('id')->on('movies');
         });
     }
 

@@ -22,8 +22,8 @@ return new class extends Migration
             $table->boolean('likemoins')->nullable();
             $table->timestamps();
             
-        $table->foreign('id_movie')->references('id')->on('movies');
-        $table->foreign('id_comment')->references('id')->on('comments');
+        // $table->foreign('id_movie')->references('id')->on('movies');
+        // $table->foreign('id_comment')->references('id')->on('comments');
         });
 
         
