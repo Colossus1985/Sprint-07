@@ -136,7 +136,22 @@
                     <div class="flex-fill">
                         <p class="mb-0 fw-lighter">{{ $comment->pseudo }}</p>
                     </div>
-                    <div class="d-flex flex-fill flex-row">
+                    <div class="flex-fill">
+                        <p class="mb-0 fw-lighter">status</p>
+                    </div>
+                    <div class="flex-fill">
+                        <p class="mb-0 fw-lighter">nb likes</p>
+                    </div>
+                    <div class="flex-fill">
+                        <p class="mb-0 fw-lighter">nb comments</p>
+                    </div>
+                    
+                </div>
+                <div class="d-flex">
+                    <p class="overflow-hidden">{{ $comment->comment }}</p>
+                </div>
+                <div class="d-flex flex-row">
+                    <div class="d-flex flex-row">
                         <form class="ms-3" action="{{ route('updateLikePlusComment', $comment->id) }}" method="GET">
                             <input class="visually-hidden" name="likePlusOld" value="{{ $comment ->likeplus }}" readonly>
                             <input class="visually-hidden" name="inputIdMovie" value="{{ $movie->id }}" readonly>
@@ -144,12 +159,12 @@
                                 <p>👍</p>
                             @endguest
                             @auth
-                            <button class="btn"  type="submit" name="likeMoins" readonly>👍</button>
+                                <button class="btn"  type="submit" name="likeMoins" readonly>👍</button>
                             @endauth
                         </form>
                         <p class="mb-0 fw-lighter">{{ $comment->likeplus }}</p>
                     </div>
-                    <div class="d-flex flex-fill flex-row">
+                    <div class="d-flex flex-row">
                         <form class="ms-3" action="{{ route('updateLikeMoinsComment', $comment->id) }}" method="GET">
                             <input class="visually-hidden" name="likeMoinsOld" value="{{ $comment ->likemoins }}" readonly>
                             <input class="visually-hidden" name="inputIdMovie" value="{{ $movie->id }}" readonly>
@@ -157,15 +172,13 @@
                                 <p>👎</p>
                             @endguest
                             @auth
-                               <button class="btn"  type="submit" name="likeMoins" readonly>👎</button>
+                                <button class="btn"  type="submit" name="likeMoins" readonly>👎</button>
                             @endauth
                         </form>
                         <p class="mb-0 fw-lighter">{{ $comment->likemoins }}</p>
                     </div>
                 </div>
-                <div class="d-flex">
-                    <p class="overflow-hidden">{{ $comment->comment }}</p>
-                </div>
+                
                 @auth
                     @if (Auth::user()->pseudo == $comment->pseudo || Auth::user()->admin == true )
                         <div class="d-flex flex-row justify-content-end">
