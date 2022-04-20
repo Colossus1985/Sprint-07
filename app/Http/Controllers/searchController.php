@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movies;
-use App\Models\comments;
+use App\Models\Comments;
 use Illuminate\Http\Request;
 
 class searchController extends Controller
