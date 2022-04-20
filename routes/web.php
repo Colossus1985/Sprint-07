@@ -32,10 +32,10 @@ Route::get('/', [forumMoviesCRUDController::class, 'home']);
 Route::get('home/{genre?}', [forumMoviesCRUDController::class, 'home']) -> name('home');
 Route::get('create', [forumMoviesCRUDController::class , 'create']) -> name('create');
 Route::get('edit', [forumMoviesCRUDController::class , 'edit']) -> name('edit');
-Route::get('updateLikePlus/{id}', [forumMoviesCRUDController::class , 'updateLikePlus']) -> name('updateLikePlus');
-Route::get('updateLikeMoins/{id}', [forumMoviesCRUDController::class , 'updateLikeMoins']) -> name('updateLikeMoins');
-Route::get('updateLikePlusDetailMovie/{id}', [forumMoviesCRUDController::class , 'updateLikePlusDetailMovie']) -> name('updateLikePlusDetailMovie');
-Route::get('updateLikeMoinsDetailMovie/{id}', [forumMoviesCRUDController::class , 'updateLikeMoinsDetailMovie']) -> name('updateLikeMoinsDetailMovie');
+Route::get('updateLikePlus/{id}', [likeController::class , 'updateLikePlus']) -> name('updateLikePlus');
+Route::get('updateLikeMoins/{id}', [likeController::class , 'updateLikeMoins']) -> name('updateLikeMoins');
+Route::get('updateLikePlusDetailMovie/{id}', [likeController::class , 'updateLikePlusDetailMovie']) -> name('updateLikePlusDetailMovie');
+Route::get('updateLikeMoinsDetailMovie/{id}', [likeController::class , 'updateLikeMoinsDetailMovie']) -> name('updateLikeMoinsDetailMovie');
 Route::get('filterMovie/{filter}', [forumMoviesCRUDController::class , 'filterMovie']) -> name('filterMovie');
 
 Route::get('editComment', [searchController::class , 'editComment']) -> name('editComment');
