@@ -22,6 +22,7 @@ return new class extends Migration
             $table -> timestamp('email_verified-at') -> nullable();
             $table -> string('password');
             $table -> boolean('admin')->default(0);
+            $table -> integer('likes');
             $table->rememberToken();
             $table->timestamps();
         });

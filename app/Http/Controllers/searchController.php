@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movies;
 use App\Models\Comments;
+use App\Models\Likes;
 use Illuminate\Http\Request;
 
 class searchController extends Controller
@@ -40,7 +41,6 @@ class searchController extends Controller
     */ 
     public function detailMovie(Request $request)
     {
-        $message = '';
         $id_movie = trim($request -> get('inputMovieId'));
         $nameMovie = trim($request -> get('inputDetailMovie'));
         
@@ -51,7 +51,7 @@ class searchController extends Controller
         $dataComments['comments'] = Comments::query()
                 ->where('id_movie', '=', $id_movie)
                 ->get();
-
-        return view('movies.detailMovie', $dataMovie, $dataComments, compact('message'));
+        
+        return view('movies.detailMovie', $dataMovie, $dataComments);
     }
 }
