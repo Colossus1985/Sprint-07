@@ -71,10 +71,10 @@
             <th>Release</th>
             <th>Time</th>
             <th>Synopsis</th>
-            <th>Genre</th>
+            <th>Gender</th>
             <th>Poster</th>
-            <th>+ likes</th>
-            <th>- likes</th>
+            <th>❤ likes</th>
+            <th>👎 dislikes</th>
             @auth
             @if (Auth::user()->admin == true)
             <th width="280px">Action</th>
@@ -84,7 +84,7 @@
         </tr>
         @if (count($movies) == 0)
         <div>
-            <p class="alert alert-danger">Sorry there are no movis at this kind yet</p>
+            <p class="alert alert-danger">Sorry there are no movies at this kind yet</p>
         </div>
         @endif
 
@@ -108,7 +108,7 @@
             <td>{{ $movie ->time }}</td>
             <td>{{ $movie ->synopsis }}</td>
             <td>{{ $movie ->genre }}</td>
-            <td>{{ $movie ->img }}</td>
+            <td><img src="{{ Storage::url($movie->img) }}" alt="Image de film" width="200px" height="200px"></td>
             <td class="">
                 {{ $movie ->likeplus }}
                 <form class="ms-3" action="{{ route('updateLikePlus', $movie->id) }}" method="GET">

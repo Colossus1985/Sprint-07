@@ -66,7 +66,7 @@ class forumMoviesCRUDController extends Controller
             'time' => 'required',
             'synopsis' => 'required',
             'genre' => 'required',
-            'img' => '',
+            'img' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
 
         $movie = new Movies;
@@ -75,7 +75,8 @@ class forumMoviesCRUDController extends Controller
         $movie -> time = $request -> time;
         $movie -> synopsis = $request -> synopsis;
         $movie -> genre = $request -> genre;
-        $movie -> img = $request -> img;
+        $path = $request->file('img')->store('public/images');
+        $movie->img = $path;
         $movie -> likeplus = $request -> likeplus;
         $movie -> likemoins = $request -> likemoins;
         $movie -> save();
@@ -132,12 +133,21 @@ class forumMoviesCRUDController extends Controller
         ]);
 
         $movie = Movies::find($id);
+
+        if($request->hasFile('img')){
+            $request->validate([
+              'img' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            ]);
+            $path = $request->file('img')->store('public/images');
+            $movie->img = $path;
+        }
+
         $movie -> name = $request -> name;
         $movie -> release = $request -> release;
         $movie -> time = $request -> time;
         $movie -> synopsis = $request -> synopsis;
         $movie -> genre = $request -> genre;
-        $movie -> img = $request -> img;
+        // $movie -> img = $request -> img;
         $movie -> likeplus = $request -> likeplus;
         $movie -> likemoins = $request -> likemoins;
         $movie -> save();
@@ -145,16 +155,6 @@ class forumMoviesCRUDController extends Controller
         return redirect() -> route('home')
             -> with('success', 'Movie Has Been updated successfully');
     }
-
-
-
-
-
-
-
-
-
-
 
 
     /**

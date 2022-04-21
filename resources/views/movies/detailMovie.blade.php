@@ -1,5 +1,6 @@
 @extends('movies.home')
 @section('content')
+<link href="{{ asset('/app.css') }}" rel="stylesheet">
     <div class="container mt-5">
         <div class="row pt-4">
             <div class="col-lg-12 margin-tb">
@@ -34,8 +35,50 @@
                 <p>{{ $message }}</p>
             </div>
         @endif
-        
-        <table class="table table-bordered">
+        @foreach ($movies as $movie)
+        <!-- DEBUT DE MON affiche DU FILM  -->
+        <div class="container">
+                    <div class="row align-items-center position-relative">
+                        <div class="col-xl-3 col-lg-4">
+                            <div class="movie-details-img">
+                                <img src="{{ Storage::url($movie->img) }}"  alt="">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 ">
+                            <div class="movie-details-content">
+                                <h2>{{ $movie->name }}</h2>
+                                <div >
+                                    <ul>
+                                        <li >
+                                           <span>🎞 {{ $movie ->genre }}</span>
+                                      
+                                            <span>🗓{{ $movie ->release }}</span>
+                                            <span>🕒{{ $movie ->time }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                
+                                <p>{{ $movie ->synopsis }} </div>
+                                @auth
+                    @if (Auth::user()->admin == true)
+                        <div class="adminpanel"><td>
+                            <div class="d-flex flex-row">
+                            <form class="d-flex flex-fill" action="{{ route('movies.destroy', $movie->id) }}" method="Post"> 
+                                <a class="btn btn-primary flex-fill me-2" href="{{ route('movies.edit', $movie->id) }}">Edit</a>
+                                @csrf 
+                                @method('DELETE')                                      
+                                <button type="submit" class="btn btn-danger flex_fill" onclick="return confirm('The Movie and all Comments will be deleted');">Delete</button> 
+                            </form>
+                            </div>
+                        </td> </div>
+                    @endif
+                @endauth
+            </tr>
+            @endforeach
+</div>
+        <!-- FIN L'AFFICHE FILM  -->
+        <!-- <table class="table table-bordered">
             <tr>
                 <th>Name</th>
                 <th>Release</th>
@@ -100,7 +143,7 @@
             </tr>
             @endforeach
         </table>
-    </div>
+    </div> -->
     <div>@if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>

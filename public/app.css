@@ -1,0 +1,48 @@
+/* 13. Movie-details */
+
+
+.container{
+    margin-top: 10px;
+}
+.movie-details-content {
+    margin-left: 15px;
+}
+.movie-details-content h2 {
+    font-size: 60px;
+    margin-bottom: 10px;
+    color:#0066ff
+}
+
+.movie-details-content span{
+    margin-right: 20px;
+}
+
+.movie-details-content p {
+    margin-bottom: 0;
+}
+.movie-details-img img {
+width:303px; 
+height:430px; 
+
+}
+.movie-details-content li {
+list-style: none;
+font-weight: bold;
+  }
+
+.comments {
+    margin-top: 80px;
+    margin-bottom: 20px;
+}
+.comments h3 {
+    color:#0066ff;
+    margin-top: 80px;
+    margin-bottom: 20px;
+}
+
+.adminpanel{
+    margin-top: 20px;
+}
+/* .commentsview{
+    background-color: blue;
+} */
