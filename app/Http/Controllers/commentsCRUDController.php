@@ -59,6 +59,7 @@ class commentsCRUDController extends Controller
         
         $dataComments['comments'] = Comments::query()
                 ->where('id_movie', '=', $request->inputMovieId)
+                ->orderBy('created_at','desc')
                 ->get();
                 
         return view('movies.detailMovie', $dataMovie, $dataComments);
