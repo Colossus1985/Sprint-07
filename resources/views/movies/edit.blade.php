@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <strong>Time:</strong>
+                            <strong>time:</strong>
                             <input type="text" name="time" value="{{ $movie->time }}" class="form-control" placeholder="time">
                             @error('time')
                             <div class="alert alert-danger mt-1 mb-1">
@@ -73,7 +73,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <strong>Gender:</strong>
+                            <strong>Genre:</strong>
                             <input type="text" name="genre" value="{{ $movie->genre }}" class="form-control" placeholder="Genre">
                             @error('genre')
                             <div class="alert alert-danger mt-1 mb-1">
@@ -83,23 +83,19 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Poster:</strong>
-                 <input type="file" name="img" class="form-control" >
-                @error('img')
-                  <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-               @enderror
-            </div>
-            <div class="form-group">
-
-              <img src="{{ Storage::url($movie->img) }}" height="200" width="200" alt="Poster du film" />
-
-
-            </div>
-        </div>
+                        <div class="form-group">
+                            <strong>Poster:</strong>
+                            <input type="img" name="img" value="{{ $movie->img }}" class="form-control" placeholder="Image">
+                            @error('img')
+                            <div class="alert alert-danger mt-1 mb-1">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <strong>❤ Loved:</strong>
+                            <strong>Loved:</strong>
                             <input type="number" name="likeplus" value="{{ $movie->likeplus }}" class="form-control" placeholder="0">
                             @error('likeplus')
                             <div class="alert alert-danger mt-1 mb-1">
@@ -110,7 +106,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <strong>👎 Hated:</strong>
+                            <strong>Hated:</strong>
                             <input type="text" name="likemoins" value="{{ $movie->likemoins }}" class="form-control" placeholder="0">
                             @error('likemoins')
                             <div class="alert alert-danger mt-1 mb-1">
