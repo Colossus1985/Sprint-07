@@ -6,6 +6,7 @@
             <div class="text-nowrap">
                 <h2>The Movie Show</h2>
             </div>
+            
             <div class="d-flex flex-row text-nowrap">
                 <div class="pull-right">
                     <a class="btn btn-primary me-2" href="{{ route('home') }}" enctype="multipart/form-data"> Back</a>
