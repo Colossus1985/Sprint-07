@@ -107,10 +107,10 @@
                                 <p class="mb-0 fw-lighter">status</p>
                             </div>
                             <div class="flex-fill">
-                                <p class="mb-0 fw-lighter">nb likes</p>
+                                <p class="mb-0 fw-lighter">Likes : {{ $comment->likes }}</p>
                             </div>
                             <div class="flex-fill">
-                                <p class="mb-0 fw-lighter">nb comments</p>
+                                <p class="mb-0 fw-lighter">Comments : {{ $comment->comments }}</p>
                             </div>
                             
                         </div>
