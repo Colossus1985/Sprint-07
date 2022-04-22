@@ -255,6 +255,7 @@ class likeController extends Controller
     public function updateLikePlusComment(Request $request, $id_comment)
     {
     $id_movie = trim($request->get('inputIdMovie'));
+    $pseudo_user = Auth::user()->pseudo;
 
     $dataMovie['movies'] = Movies::query()
                 ->where('id', '=', $id_movie)
