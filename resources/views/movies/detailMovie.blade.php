@@ -1,5 +1,6 @@
 @extends('movies.home')
 @section('content')
+
 <link href="{{ asset('/app.css') }}" rel="stylesheet">
     <div class="d-flex flex-column mt-5">
         <div class="d-flex flex-column pt-4">
@@ -12,17 +13,120 @@
                 </div>
                 @auth
                 @if (Auth::user()->admin == true)
-                <div class="pull-right mb-2">
-                    <a class="btn btn-success" href="{{ route('create') }}">Add New Movie</a>
-                </div>
-                <div class="ms-3">
-                    <a class="btn btn-primary" href="{{ route('users') }}">Users</a>
-                </div>
+                    <div class="pull-right mb-2">
+                        <a class="btn btn-success" href="{{ route('create') }}">Add New Movie</a>
+                    </div>
+                    <div class="ms-3">
+                        <a class="btn btn-primary" href="{{ route('users') }}">Users</a>
+                    </div>
                 @endif
                 @endauth
             </div>
         </div>
         
+
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+        @endif
+        @if ($message != null || $message !='')
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+        @endif
+        
+        <table class="table table-bordered">
+            <tr>
+                <th>Name</th>
+                <th>Release</th>
+                <th>Time</th>
+                <th>Synopsis</th>
+                <th>Genre</th>
+                <th>Poster</th>
+                <th>+ likes</th>
+                <th>- likes</th>
+                @auth
+                    @if (Auth::user()->admin == true)
+                        <th width="280px">Action</th>
+                    @endif
+                @endauth
+            </tr>
+            @foreach ($movies as $movie)
+            <tr>
+                <td>{{ $movie ->name }}</td>
+                <td class="text-nowrap">{{ $movie ->release }}</td>
+                <td>{{ $movie ->time }}</td>
+                <td>{{ $movie ->synopsis }}</td>
+                <td>{{ $movie ->genre }}</td>
+                <td>{{ $movie ->img }}</td>
+                <td class="">
+                    {{ $movie ->likeplus }}
+                    <form class="ms-3" action="{{ route('updateLikePlusDetailMovie', $movie->id) }}" method="GET">
+                        <input class="visually-hidden" name="likePlusOld" value="{{ $movie ->likeplus }}" readonly>
+                        @guest
+                            <p>👍</p>
+                        @endguest
+                        @auth
+                            <button class="btn" tupe="submit" name="likePlus" readonly>👍</button>
+                        @endauth 
+                    </form>
+                </td>
+                <td class="">
+                    {{ $movie ->likemoins }}
+                    <form class="ms-3" action="{{ route('updateLikeMoinsDetailMovie', $movie->id) }}" method="GET">
+                        <input class="visually-hidden" name="likeMoinsOld" value="{{ $movie ->likemoins }}" readonly>
+                        @guest
+                            <p>👎</p>
+                        @endguest
+                        @auth
+                           <button class="btn"  type="submit" name="likeMoins" readonly>👎</button>
+                        @endauth
+                    </form>
+                </td>
+                @auth
+                    @if (Auth::user()->admin == true)
+                        <td>
+                            <div class="d-flex flex-row">
+                            <form class="d-flex flex-fill" action="{{ route('movies.destroy', $movie->id) }}" method="Post"> 
+                                <a class="btn btn-primary flex-fill me-2" href="{{ route('movies.edit', $movie->id) }}">Edit</a>
+                                @csrf 
+                                @method('DELETE')                                      
+                                <button type="submit" class="btn btn-danger flex_fill" onclick="return confirm('The Movie and all Comments will be deleted');">Delete</button> 
+                            </form>
+                            </div>
+                        </td> 
+                    @endif
+                @endauth
+            </tr>
+            @endforeach
+        </table>
+    </div>
+    <div>@if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+        @endif
+        <h3>Comments</h3>
+        @auth
+            <div class="form-floating">
+                <form action="{{ route('comments.store') }}" method="POST">
+                    @csrf
+                    <input type="text" name="inputMovieName" class="visually-hidden" value="{{ $movie->name }}" readonly>
+                    <input type="text" name="inputMovieId" class="visually-hidden" value="{{ $movie->id }}" readonly>
+                    <input type="text" name="inputPseudo" class="visually-hidden" value="{{ Auth::user()->pseudo }}" readonly>
+                    <div class="form-group form-floating mb-3">
+                        <textarea type="text" name="commentArea" class="form-control" id="floatingName" maxlength="1000" style="height: 100px"></textarea>
+                        <label for="floatingName">Leave a comment here</label>
+                    </div>
+                    <button type="submit" class="form-control btn btn-info">Send Comment</button>
+                </form>
+            </div>  
+        @endauth
+        @guest
+            <div class="form-floating">
+                <p>To let a comment, please login!</p>
+
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                     <p>{{ $message }}</p>
@@ -39,6 +143,7 @@
         <div class="d-flex flex-row">
             <div class="movie-details-img">
                 <img src="{{ Storage::url($movie->img) }}"  alt="{{ $movie->name }}">
+
             </div>
             <div class="d-flex flex-column justify-content-between ms-4">
                 <div class="d-flex flex-column movie-details-content">

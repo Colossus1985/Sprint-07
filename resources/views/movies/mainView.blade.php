@@ -71,10 +71,10 @@
             <th>Release</th>
             <th>Time</th>
             <th>Synopsis</th>
-            <th>Gender</th>
+            <th>Genre</th>
             <th>Poster</th>
-            <th>❤ likes</th>
-            <th>👎 dislikes</th>
+            <th>+ likes</th>
+            <th>- likes</th>
             @auth
             @if (Auth::user()->admin == true)
             <th width="280px">Action</th>
@@ -84,7 +84,7 @@
         </tr>
         @if (count($movies) == 0)
         <div>
-            <p class="alert alert-danger">Sorry there are no movies at this kind yet</p>
+            <p class="alert alert-danger">Sorry there are no movis at this kind yet</p>
         </div>
         @endif
 

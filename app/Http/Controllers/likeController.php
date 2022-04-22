@@ -189,7 +189,6 @@ public function updateLikeMoinsDetailMovie(Request $request, $id)
     $checkLikeCommentPlus = DB::table('likes')
         ->where('pseudo', '=', Auth::user()->pseudo)
         ->where('id_comment', '=', $id_comment)
-        ->where()
         ->where('likeplus', '=', true)
         ->get();
 

@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <div class = "form-group d-flex flex-column flex-wrap">
-                        <strong>Gender:</strong>
+                        <strong>Genre:</strong>
                         <div class="d-flex flex-row flex-wrap flex-fill">
                             <div class = "flex-fill">
                                 <input type="radio" name = "genre" value="Action" class="btn-check" id="btn-check-outlined-Action" autocomplete="off">
@@ -105,7 +105,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>Poster:</strong>
-                            <input type="file" name="img" class="form-control" placeholder="img">
+                            <input type="img" name="img" class="form-control" placeholder="img">
                             @error('img')
                             <div class="alert alert-danger mt-1 mb-1">
                                 {{ $message }}
@@ -116,7 +116,7 @@
                     <div class="d-flex flex-row justify-content-between">
                         <div class="flex-fill me-2">
                             <div class="form-group ">
-                                <strong>❤ Loved:</strong>
+                                <strong>Loved:</strong>
                                 <input type="text" name="likeplus" class="form-control" value = "0">
                                 @error('likeplus')
                                 <div class="alert alert-danger mt-1 mb-1">
@@ -127,7 +127,7 @@
                         </div>
                         <div class="flex-fill mx-2">
                             <div class="form-group">
-                                <strong>👎 Hated:</strong>
+                                <strong>Hated:</strong>
                                 <input type="text" name="likemoins" class="form-control" value = "0">
                                 @error('likemoins')
                                 <div class="alert alert-danger mt-1 mb-1">
