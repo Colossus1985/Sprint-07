@@ -6,6 +6,7 @@
             <div class="text-nowrap">
                 <h2>The Movie Show</h2>
             </div>
+            
             <div class="d-flex flex-row text-nowrap">
                 @auth
                 @if (Auth::user()->admin == true)
