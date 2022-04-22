@@ -228,7 +228,6 @@ class likeController extends Controller
         $dataComments['comments'] = Comments::rightJoin('users', 'comments.pseudo', '=', 'users.pseudo')
                     ->select('comments.*', 'users.likes', 'users.admin', 'users.comments')
                     ->where('comments.id_movie', '=', $id_movie)
-                    
                     ->get();
 
     //-----check if already give a like or dislike-------------------------
@@ -249,6 +248,44 @@ class likeController extends Controller
             return view('movies.detailMovie', $dataMovie, $dataComments)
                 ->with('success', 'You\'ve already liked this movie.');
         }
+
+    return view('movies.detailMovie', $dataMovie, $dataComments);
+}
+//comment like
+    public function updateLikePlusComment(Request $request, $id_comment)
+    {
+    $id_movie = trim($request->get('inputIdMovie'));
+
+    $dataMovie['movies'] = Movies::query()
+                ->where('id', '=', $id_movie)
+                ->get();
+        
+    $dataComments['comments'] = Comments::query()
+                ->where('id_movie', '=', $id_movie)
+                ->get();
+
+    $checkLikeCommentPlus = DB::table('likes')
+        ->where('pseudo', '=', Auth::user()->pseudo)
+        ->where('id_comment', '=', $id_comment)
+        ->where('likeplus', '=', true)
+        ->get();
+
+    $checkLikeCommentMoins = DB::table('likes')
+        ->where('pseudo', '=', Auth::user()->pseudo)
+        ->where('id_comment', '=', $id_comment)
+        ->where('likemoins', '=', true)
+        ->get();
+        
+    if (count($checkLikeCommentPlus) > 0 || count($checkLikeCommentMoins) > 0) {
+        $message = 'You\'ve already liked this movie.';
+        return view('movies.detailMovie', $dataMovie, $dataComments)
+            ->with('success', 'You\'ve already liked this movie.');
+    }
+
+    $likesPlusOld = trim($request->get('likePlusOld'));
+    $likesPlusNew = $likesPlusOld + 1;
+    
+
 
     //----update table like for checks later------------------------------
 
@@ -331,4 +368,54 @@ class likeController extends Controller
 
         return view('movies.detailMovie', $dataMovie, $dataComments);
     }
+
+// dislike comment function
+
+public function updateLikeMoinsComment(Request $request, $id_comment)
+{   
+    $id_movie = trim($request->get('inputIdMovie'));
+
+    $dataMovie['movies'] = Movies::query()
+        ->where('id', '=', $id_movie)
+        ->get();
+
+    $dataComments['comments'] = Comments::query()
+        ->where('id_movie', '=', $id_movie)
+        ->get();
+
+    $checkLikeCommentPlus = DB::table('likes')
+        ->where('pseudo', '=', Auth::user()->pseudo)
+        ->where('id_comment', '=', $id_comment)
+        ->where('likemoins', '=', true)
+        ->get();
+
+    $checkLikeCommentMoins = DB::table('likes')
+        ->where('pseudo', '=', Auth::user()->pseudo)
+        ->where('id_comment', '=', $id_comment)
+        ->where('likeplus', '=', true)
+        ->get();
+        
+        
+    if (count($checkLikeCommentPlus) > 0 || count($checkLikeCommentMoins) > 0) {
+        $message = 'You\'ve already disliked this movie.';
+        return view('movies.detailMovie', $dataMovie, $dataComments, compact('message'));
+    }
+
+    $likeMoinsOld = trim($request->get('likeMoinsOld'));
+    $likeMoinsNew = $likeMoinsOld + 1;
+    
+    
+    DB::table('comments')
+        ->where('id', '=', $id_comment)
+        ->update(['likemoins' => $likeMoinsNew]);
+
+    DB::table('likes')->insert([
+            'id_comment' => $id_comment,
+            'pseudo' => Auth::user()->pseudo,
+            'likemoins' => true,
+        ]);
+
+    return view('movies.detailMovie', $dataMovie, $dataComments);
+ }
+
 }

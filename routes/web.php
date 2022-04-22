@@ -28,7 +28,8 @@ Route::get('updateLikeMoinsComment/{id_comment}', [likeController::class, 'updat
 
 Route::get('edit', [commentsCRUDController::class, 'edit']) -> name('edit');
 
-Route::get('/', [forumMoviesCRUDController::class, 'home']);
+Route::get('/', [forumMoviesCRUDController::class, 'viewCaroussel']);
+Route::get('viewCaroussel', [forumMoviesCRUDController::class, 'viewCaroussel']) -> name('viewCaroussel');
 Route::get('home/{genre?}', [forumMoviesCRUDController::class, 'home']) -> name('home');
 Route::get('create', [forumMoviesCRUDController::class , 'create']) -> name('create');
 Route::get('edit', [forumMoviesCRUDController::class , 'edit']) -> name('edit');

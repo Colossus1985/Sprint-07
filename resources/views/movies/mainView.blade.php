@@ -7,11 +7,11 @@
                 <h2>The Movie Show</h2>
             </div>
             <div class="d-flex flex-row text-nowrap">
-                <div class="pull-right">
-                    <a class="btn btn-primary me-2" href="{{ route('home') }}" enctype="multipart/form-data"> Back</a>
-                </div>
                 @auth
                 @if (Auth::user()->admin == true)
+                <div class="pull-right me-2">
+                    <a class="btn btn-primary me-3" href="{{ route('viewCaroussel') }}" enctype="multipart/form-data">Back Caroussel</a>
+                </div>
                 <div class="pull-right me-2">
                     <a class="btn btn-success" href="{{ route('create') }}">Add New Movie</a>
                 </div>
@@ -57,9 +57,9 @@
     </div>
 
     @if ($message = Session::get('success'))
-    <div class="alert alert-success">
-        <p>{{ $message }}</p>
-    </div>
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
     @endif
     {{-- <div class="alert alert-success">
         <p>ici:[{{ $genre }}]</p>
@@ -108,7 +108,8 @@
             <td>{{ $movie ->time }}</td>
             <td>{{ $movie ->synopsis }}</td>
             <td>{{ $movie ->genre }}</td>
-            <td>{{ $movie ->img }}</td>
+            <td>
+                <img src="{{ Storage::url($movie->img) }}" alt="Image de film" width="200px" height="200px"></td>
             <td class="">
                 {{ $movie ->likeplus }}
                 @auth

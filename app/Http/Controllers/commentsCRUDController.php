@@ -66,7 +66,7 @@ class commentsCRUDController extends Controller
         $dataMovie['movies'] = Movies::query()
                 ->where('id', '=', $request->inputMovieId)
                 ->get();
-        
+
         // $dataComments['comments'] = Comments::query()
         //         ->where('id_movie', '=', $request->inputMovieId)
         //         ->get();
@@ -124,10 +124,6 @@ class commentsCRUDController extends Controller
         $dataMovie['movies'] = Movies::query()
                 ->where('id', '=', $comment->id_movie)
                 ->get();
-        
-        // $dataComments['comments'] = Comments::query()
-        //         ->where('id_movie', '=', $comment->id_movie)
-        //         ->get();
                 
         $dataComments['comments'] = Comments::rightJoin('users', 'comments.pseudo', '=', 'users.pseudo')
                 ->select('comments.*', 'users.likes', 'users.admin', 'users.comments')
@@ -150,10 +146,7 @@ class commentsCRUDController extends Controller
         $dataMovie['movies'] = Movies::query()
                 ->where('id', '=', $comment->id_movie)
                 ->get();
-        
-        // $dataComments['comments'] = Comments::query()
-        //         ->where('id_movie', '=', $comment->id_movie)
-        //         ->get();
+      
         $dataComments['comments'] = Comments::rightJoin('users', 'comments.pseudo', '=', 'users.pseudo')
                 ->select('comments.*', 'users.likes', 'users.admin', 'users.comments')
                 ->where('comments.id_movie', '=', $comment->id_movie)

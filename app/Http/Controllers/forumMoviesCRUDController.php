@@ -18,11 +18,12 @@ class forumMoviesCRUDController extends Controller
     *
     * @return \Illuminate\Http\Response
     */
-    // public function home()
-    // {
-    //     $data['movies'] = Movies::orderBy('id','desc')->paginate(1000);
-    //     return view('movies.mainView', $data);
-    // }
+    public function viewCaroussel()
+    {
+        $data['movies'] = Movies::orderBy('id','desc')->paginate(1000);
+        return view('movies.viewCaroussel', $data);
+    }
+
     public function home($genre = 'all')
     {
         if ($genre == 'all') 
