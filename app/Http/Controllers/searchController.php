@@ -48,8 +48,12 @@ class searchController extends Controller
                 ->where('name', '=',  $nameMovie)
                 ->get();
 
-        $dataComments['comments'] = Comments::query()
-                ->where('id_movie', '=', $id_movie)
+        // $dataComments['comments'] = Comments::query()
+        //         ->where('id_movie', '=', $id_movie)
+        //         ->get();
+        $dataComments['comments'] = Comments::rightJoin('users', 'comments.pseudo', '=', 'users.pseudo')
+                ->select('comments.*', 'users.likes', 'users.admin', 'users.comments')
+                ->where('comments.id_movie', '=', $id_movie)
                 ->get();
         
         return view('movies.detailMovie', $dataMovie, $dataComments);

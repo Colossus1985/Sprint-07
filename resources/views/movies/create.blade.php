@@ -117,7 +117,7 @@
                         <div class="flex-fill me-2">
                             <div class="form-group ">
                                 <strong>Loved:</strong>
-                                <input type="text" name="likeplus" class="form-control" value = "0">
+                                <input type="text" name="likeplus" class="form-control" value = "0" readonly>
                                 @error('likeplus')
                                 <div class="alert alert-danger mt-1 mb-1">
                                     {{ $message }}
@@ -128,7 +128,7 @@
                         <div class="flex-fill mx-2">
                             <div class="form-group">
                                 <strong>Hated:</strong>
-                                <input type="text" name="likemoins" class="form-control" value = "0">
+                                <input type="text" name="likemoins" class="form-control" value = "0" readonly>
                                 @error('likemoins')
                                 <div class="alert alert-danger mt-1 mb-1">
                                     {{ $message }}

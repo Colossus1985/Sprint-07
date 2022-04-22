@@ -62,27 +62,27 @@
                 <td>{{ $movie ->img }}</td>
                 <td class="">
                     {{ $movie ->likeplus }}
-                    <form class="ms-3" action="{{ route('updateLikePlusDetailMovie', $movie->id) }}" method="GET">
-                        <input class="visually-hidden" name="likePlusOld" value="{{ $movie ->likeplus }}" readonly>
-                        @guest
-                            <p>👍</p>
-                        @endguest
-                        @auth
+                    @auth
+                        <form class="ms-3" action="{{ route('updateLikePlusDetailMovie', $movie->id) }}" method="GET">
+                            <input class="visually-hidden" name="likePlusOld" value="{{ $movie ->likeplus }}" readonly>
                             <button class="btn" tupe="submit" name="likePlus" readonly>👍</button>
-                        @endauth 
-                    </form>
+                        </form>
+                    @endauth 
+                    @guest
+                        <p>👍</p>
+                    @endguest
                 </td>
                 <td class="">
                     {{ $movie ->likemoins }}
-                    <form class="ms-3" action="{{ route('updateLikeMoinsDetailMovie', $movie->id) }}" method="GET">
-                        <input class="visually-hidden" name="likeMoinsOld" value="{{ $movie ->likemoins }}" readonly>
-                        @guest
-                            <p>👎</p>
-                        @endguest
-                        @auth
-                           <button class="btn"  type="submit" name="likeMoins" readonly>👎</button>
-                        @endauth
-                    </form>
+                     @auth
+                        <form class="ms-3" action="{{ route('updateLikeMoinsDetailMovie', $movie->id) }}" method="GET">
+                            <input class="visually-hidden" name="likeMoinsOld" value="{{ $movie ->likemoins }}" readonly>
+                            <button class="btn"  type="submit" name="likeMoins" readonly>👎</button>
+                        </form>
+                    @endauth
+                    @guest
+                        <p>👎</p>
+                    @endguest
                 </td>
                 @auth
                     @if (Auth::user()->admin == true)
@@ -115,6 +115,7 @@
                     <input type="text" name="inputMovieName" class="visually-hidden" value="{{ $movie->name }}" readonly>
                     <input type="text" name="inputMovieId" class="visually-hidden" value="{{ $movie->id }}" readonly>
                     <input type="text" name="inputPseudo" class="visually-hidden" value="{{ Auth::user()->pseudo }}" readonly>
+                    <input type="text" name="inputNbComments" class="visually-hidden" value="{{ Auth::user()->comments }}" readonly>
                     <div class="form-group form-floating mb-3">
                         <textarea type="text" name="commentArea" class="form-control" id="floatingName" maxlength="1000" style="height: 100px"></textarea>
                         <label for="floatingName">Leave a comment here</label>
@@ -145,6 +146,26 @@
                 <img src="{{ Storage::url($movie->img) }}"  alt="{{ $movie->name }}">
 
             </div>
+
+        @endguest
+        @foreach ($comments as $comment)
+            <div class="d-flex flex-column border border-3 rounded my-1 px-2 pb-2">
+                <div class="d-flex flex-row justify-content-end">
+                    <div class="flex-fill">
+                        <p class="mb-0 fw-lighter ">{{ \Carbon\Carbon::parse($comment->created_at)->locale('nl')->format('d/m/Y H:i:s') }}</p>
+                    </div>
+                    <div class="flex-fill">
+                        <p class="mb-0 fw-lighter">{{ $comment->pseudo }}</p>
+                    </div>
+                    <div class="flex-fill">
+                        <p class="mb-0 fw-lighter">status</p>
+                    </div>
+                    <div class="flex-fill">
+                        <p class="mb-0 fw-lighter">Likes : {{ $comment->likes }}</p>
+                    </div>
+                    <div class="flex-fill">
+                        <p class="mb-0 fw-lighter">Posts : {{ $comment->comments }}</p>
+
             <div class="d-flex flex-column justify-content-between ms-4">
                 <div class="d-flex flex-column movie-details-content">
                     <h2>{{ $movie->name }}</h2>
@@ -158,6 +179,31 @@
                 @auth
                 @if (Auth::user()->admin == true)
                 <div class="d-flex flex-row">
+                    <div class="d-flex flex-row">
+                        <form class="ms-3" action="{{ route('updateLikePlusComment', $comment->id) }}" method="GET">
+                            <input class="visually-hidden" name="likePlusOld" value="{{ $comment ->likeplus }}" readonly>
+                            <input class="visually-hidden" name="inputIdMovie" value="{{ $movie->id }}" readonly>
+                            <input class="visually-hidden" name="inputLikes" value="{{ $comment->likes }}">
+                            @guest
+                                <p>👍</p>
+                            @endguest
+                            @auth
+                                <button class="btn"  type="submit" name="likeMoins" readonly>👍</button>
+                            @endauth
+                        </form>
+                        <p class="mb-0 fw-lighter">{{ $comment->likeplus }}</p>
+                    </div>
+                    <div class="d-flex flex-row">
+                        <form class="ms-3" action="{{ route('updateLikeMoinsComment', $comment->id) }}" method="GET">
+                            <input class="visually-hidden" name="likeMoinsOld" value="{{ $comment ->likemoins }}" readonly>
+                            <input class="visually-hidden" name="inputIdMovie" value="{{ $movie->id }}" readonly>
+                            <input class="visually-hidden" name="inputLikes" value="{{ $comment->likes }}">
+                            @guest
+                                <p>👎</p>
+                            @endguest
+                            @auth
+                                <button class="btn"  type="submit" name="likeMoins" readonly>👎</button>
+                            @endauth
                     <form class="d-flex flex-fill" action="{{ route('movies.destroy', $movie->id) }}" method="Post"> 
                         <a class="btn btn-primary flex-fill me-2" href="{{ route('movies.edit', $movie->id) }}">Edit</a>
                         @csrf 
@@ -202,7 +248,21 @@
                 @foreach ($comments as $comment)
                     <div class="d-flex flex-column border border-3 rounded my-1 px-2 pb-2">
                         <div class="d-flex flex-row justify-content-end">
-                            <div class="flex-fill">
+                            <form action="{{ route('comments.destroy', $comment->id) }}" method="POST"> 
+                                <input class="visually-hidden" name="inputNameMovie" value="{{ $movie->name }}">
+                                <input class="visually-hidden" name="inputIdComment" value="{{ $comment->id }}">
+                                <input class="visually-hidden" name="inputLikes" value="{{ Auth::user()->likes }}">
+                                @if (Auth::user()->pseudo == $comment->pseudo)
+                                    <a class="btn btn-primary" href="{{ route('comments.edit', $movie->id) }}">Modify</a>
+                                @endif
+                                @csrf 
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('The Comment will be deleted');">Delete</button> 
+                            </form>
+                        </div> 
+                    @endif
+                @endauth
+                    <div class="flex-fill">
                                 <p class="mb-0 fw-lighter ">{{ \Carbon\Carbon::parse($comment->created_at)->locale('nl')->format('d/m/Y H:i:s') }}</p>
                             </div>
                             <div class="flex-fill">

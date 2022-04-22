@@ -69,6 +69,7 @@
     </div>
         <div class="container mt-5">
             <form action="{{ route('comments.update', $comment->id) }}" method="POST" enctype="multipart/form-data">
+                
                 @csrf
                 @method('PUT')
                 <label for="floatingTextarea2">Modify your comment here</label>
