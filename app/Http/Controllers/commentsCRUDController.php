@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comments;
 use Illuminate\Http\Request;
 use App\Models\Movies;
+use Illuminate\Support\Facades\DB;
 
 
 class commentsCRUDController extends Controller
@@ -44,21 +45,34 @@ class commentsCRUDController extends Controller
             'inputPseudo' => 'required',
         ]);
 
+        $pseudo = $request->inputPseudo; 
+
         $comment = new Comments;
         $comment -> id_movie = $request -> inputMovieId;
         $comment -> name_movie = $request -> inputMovieName;
-        $comment -> pseudo = $request -> inputPseudo;
+        $comment -> pseudo = $pseudo;
         $comment -> comment = $request -> commentArea;
         $comment -> likeplus = 0;
         $comment -> likemoins = 0;
         $comment -> save();
 
+        $nb_commentsOld = trim($request->get('inputNbComments'));
+        $nb_commentsNew = (int)$nb_commentsOld + 1;
+        
+        DB::table('users')
+            ->where('pseudo', '=', $pseudo)
+            ->update(['comments' => $nb_commentsNew]);
+
         $dataMovie['movies'] = Movies::query()
                 ->where('id', '=', $request->inputMovieId)
                 ->get();
         
-        $dataComments['comments'] = Comments::query()
-                ->where('id_movie', '=', $request->inputMovieId)
+        // $dataComments['comments'] = Comments::query()
+        //         ->where('id_movie', '=', $request->inputMovieId)
+        //         ->get();
+        $dataComments['comments'] = Comments::rightJoin('users', 'comments.pseudo', '=', 'users.pseudo')
+                ->select('comments.*', 'users.likes', 'users.admin', 'users.comments')
+                ->where('comments.id_movie', '=', $comment->id_movie)
                 ->get();
                 
         return view('movies.detailMovie', $dataMovie, $dataComments);
@@ -111,8 +125,13 @@ class commentsCRUDController extends Controller
                 ->where('id', '=', $comment->id_movie)
                 ->get();
         
-        $dataComments['comments'] = Comments::query()
-                ->where('id_movie', '=', $comment->id_movie)
+        // $dataComments['comments'] = Comments::query()
+        //         ->where('id_movie', '=', $comment->id_movie)
+        //         ->get();
+                
+        $dataComments['comments'] = Comments::rightJoin('users', 'comments.pseudo', '=', 'users.pseudo')
+                ->select('comments.*', 'users.likes', 'users.admin', 'users.comments')
+                ->where('comments.id_movie', '=', $comment->id_movie)
                 ->get();
                 
         return view('movies.detailMovie', $dataMovie, $dataComments);
@@ -132,8 +151,12 @@ class commentsCRUDController extends Controller
                 ->where('id', '=', $comment->id_movie)
                 ->get();
         
-        $dataComments['comments'] = Comments::query()
-                ->where('id_movie', '=', $comment->id_movie)
+        // $dataComments['comments'] = Comments::query()
+        //         ->where('id_movie', '=', $comment->id_movie)
+        //         ->get();
+        $dataComments['comments'] = Comments::rightJoin('users', 'comments.pseudo', '=', 'users.pseudo')
+                ->select('comments.*', 'users.likes', 'users.admin', 'users.comments')
+                ->where('comments.id_movie', '=', $comment->id_movie)
                 ->get();
                 
         return view('movies.detailMovie', $dataMovie, $dataComments);

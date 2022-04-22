@@ -111,27 +111,29 @@
             <td>{{ $movie ->img }}</td>
             <td class="">
                 {{ $movie ->likeplus }}
-                <form class="ms-3" action="{{ route('updateLikePlus', $movie->id) }}" method="GET">
-                    <input class="visually-hidden" name="likePlusOld" value="{{ $movie ->likeplus }}" readonly>
-                    @guest
+                @auth
+                    <form class="ms-3" action="{{ route('updateLikePlus', $movie->id) }}" method="GET">
+                        <input class="visually-hidden" name="inputLikes" value="{{ Auth::user()->likes }}">
+                        <input class="visually-hidden" name="likePlusOld" value="{{ $movie ->likeplus }}" readonly>
+                        <button class="btn" tupe="submit" name="likePlus" readonly>👍</button>
+                    </form>
+                 @endauth
+                @guest
                     <p>👍</p>
-                    @endguest
-                    @auth
-                    <button class="btn" tupe="submit" name="likePlus" readonly>👍</button>
-                    @endauth
-                </form>
+                @endguest
             </td>
             <td class="">
                 {{ $movie ->likemoins }}
-                <form class="ms-3" action="{{ route('updateLikeMoins', $movie->id) }}" method="GET">
-                    <input class="visually-hidden" name="likeMoinsOld" value="{{ $movie ->likemoins }}" readonly>
-                    @guest
+                @auth
+                    <form class="ms-3" action="{{ route('updateLikeMoins', $movie->id) }}" method="GET">
+                        <input class="visually-hidden" name="inputLikes" value="{{ Auth::user()->likes }}">
+                        <input class="visually-hidden" name="likeMoinsOld" value="{{ $movie ->likemoins }}" readonly>
+                        <button class="btn" type="submit" name="likeMoins" readonly>👎</button>
+                     </form>
+                @endauth
+                @guest
                     <p>👎</p>
-                    @endguest
-                    @auth
-                    <button class="btn" type="submit" name="likeMoins" readonly>👎</button>
-                    @endauth
-                </form>
+                @endguest
             </td>
             @auth
             @if (Auth::user()->admin == true)

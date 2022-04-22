@@ -61,27 +61,27 @@
                 <td>{{ $movie ->img }}</td>
                 <td class="">
                     {{ $movie ->likeplus }}
-                    <form class="ms-3" action="{{ route('updateLikePlusDetailMovie', $movie->id) }}" method="GET">
-                        <input class="visually-hidden" name="likePlusOld" value="{{ $movie ->likeplus }}" readonly>
-                        @guest
-                            <p>👍</p>
-                        @endguest
-                        @auth
+                    @auth
+                        <form class="ms-3" action="{{ route('updateLikePlusDetailMovie', $movie->id) }}" method="GET">
+                            <input class="visually-hidden" name="likePlusOld" value="{{ $movie ->likeplus }}" readonly>
                             <button class="btn" tupe="submit" name="likePlus" readonly>👍</button>
-                        @endauth 
-                    </form>
+                        </form>
+                    @endauth 
+                    @guest
+                        <p>👍</p>
+                    @endguest
                 </td>
                 <td class="">
                     {{ $movie ->likemoins }}
-                    <form class="ms-3" action="{{ route('updateLikeMoinsDetailMovie', $movie->id) }}" method="GET">
-                        <input class="visually-hidden" name="likeMoinsOld" value="{{ $movie ->likemoins }}" readonly>
-                        @guest
-                            <p>👎</p>
-                        @endguest
-                        @auth
-                           <button class="btn"  type="submit" name="likeMoins" readonly>👎</button>
-                        @endauth
-                    </form>
+                     @auth
+                        <form class="ms-3" action="{{ route('updateLikeMoinsDetailMovie', $movie->id) }}" method="GET">
+                            <input class="visually-hidden" name="likeMoinsOld" value="{{ $movie ->likemoins }}" readonly>
+                            <button class="btn"  type="submit" name="likeMoins" readonly>👎</button>
+                        </form>
+                    @endauth
+                    @guest
+                        <p>👎</p>
+                    @endguest
                 </td>
                 @auth
                     @if (Auth::user()->admin == true)
@@ -114,6 +114,7 @@
                     <input type="text" name="inputMovieName" class="visually-hidden" value="{{ $movie->name }}" readonly>
                     <input type="text" name="inputMovieId" class="visually-hidden" value="{{ $movie->id }}" readonly>
                     <input type="text" name="inputPseudo" class="visually-hidden" value="{{ Auth::user()->pseudo }}" readonly>
+                    <input type="text" name="inputNbComments" class="visually-hidden" value="{{ Auth::user()->comments }}" readonly>
                     <div class="form-group form-floating mb-3">
                         <textarea type="text" name="commentArea" class="form-control" id="floatingName" maxlength="1000" style="height: 100px"></textarea>
                         <label for="floatingName">Leave a comment here</label>
@@ -140,10 +141,10 @@
                         <p class="mb-0 fw-lighter">status</p>
                     </div>
                     <div class="flex-fill">
-                        <p class="mb-0 fw-lighter">nb likes</p>
+                        <p class="mb-0 fw-lighter">Likes : {{ $comment->likes }}</p>
                     </div>
                     <div class="flex-fill">
-                        <p class="mb-0 fw-lighter">nb comments</p>
+                        <p class="mb-0 fw-lighter">Posts : {{ $comment->comments }}</p>
                     </div>
                     
                 </div>
@@ -155,6 +156,7 @@
                         <form class="ms-3" action="{{ route('updateLikePlusComment', $comment->id) }}" method="GET">
                             <input class="visually-hidden" name="likePlusOld" value="{{ $comment ->likeplus }}" readonly>
                             <input class="visually-hidden" name="inputIdMovie" value="{{ $movie->id }}" readonly>
+                            <input class="visually-hidden" name="inputLikes" value="{{ $comment->likes }}">
                             @guest
                                 <p>👍</p>
                             @endguest
@@ -168,6 +170,7 @@
                         <form class="ms-3" action="{{ route('updateLikeMoinsComment', $comment->id) }}" method="GET">
                             <input class="visually-hidden" name="likeMoinsOld" value="{{ $comment ->likemoins }}" readonly>
                             <input class="visually-hidden" name="inputIdMovie" value="{{ $movie->id }}" readonly>
+                            <input class="visually-hidden" name="inputLikes" value="{{ $comment->likes }}">
                             @guest
                                 <p>👎</p>
                             @endguest
@@ -185,8 +188,9 @@
                             <form action="{{ route('comments.destroy', $comment->id) }}" method="POST"> 
                                 <input class="visually-hidden" name="inputNameMovie" value="{{ $movie->name }}">
                                 <input class="visually-hidden" name="inputIdComment" value="{{ $comment->id }}">
+                                <input class="visually-hidden" name="inputLikes" value="{{ Auth::user()->likes }}">
                                 @if (Auth::user()->pseudo == $comment->pseudo)
-                                    <a class="btn btn-primary" href="{{ route('comments.edit', $comment->id, $movie->id) }}">Modify</a>
+                                    <a class="btn btn-primary" href="{{ route('comments.edit', $movie->id) }}">Modify</a>
                                 @endif
                                 @csrf 
                                 @method('DELETE')
