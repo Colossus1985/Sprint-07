@@ -228,6 +228,7 @@ class likeController extends Controller
         $dataComments['comments'] = Comments::rightJoin('users', 'comments.pseudo', '=', 'users.pseudo')
                     ->select('comments.*', 'users.likes', 'users.admin', 'users.comments')
                     ->where('comments.id_movie', '=', $id_movie)
+                    
                     ->get();
 
     //-----check if already give a like or dislike-------------------------
