@@ -102,10 +102,10 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="d-flex">
                         <div class="form-group">
                             <strong>Poster:</strong>
-                            <input type="img" name="img" class="form-control" placeholder="img">
+                            <input type="file" name="img" class="" id="images" multiple="multiple">
                             @error('img')
                             <div class="alert alert-danger mt-1 mb-1">
                                 {{ $message }}
@@ -113,6 +113,12 @@
                             @enderror
                         </div>
                     </div>
+                    {{-- <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <input type="file" name="imageFile[]" class="custom-file-input" id="images" multiple="multiple">
+                            <label class="custom-file-label" for="images">Choose image</label>
+                        </div>
+                    </div> --}}
                     <div class="d-flex flex-row justify-content-between">
                         <div class="flex-fill me-2">
                             <div class="form-group ">
