@@ -67,8 +67,10 @@ class forumMoviesCRUDController extends Controller
             'time' => 'required',
             'synopsis' => 'required',
             'genre' => 'required',
-            'img' => '',
+            'img' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
+
+        $path = $request->file('img')->store('public/images');
 
         $movie = new Movies;
         $movie -> name = $request -> name;
@@ -76,7 +78,7 @@ class forumMoviesCRUDController extends Controller
         $movie -> time = $request -> time;
         $movie -> synopsis = $request -> synopsis;
         $movie -> genre = $request -> genre;
-        $movie -> img = $request -> img;
+        $movie->img = $path;
         $movie -> likeplus = $request -> likeplus;
         $movie -> likemoins = $request -> likemoins;
         $movie -> save();

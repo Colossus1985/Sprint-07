@@ -11,7 +11,7 @@
                 @auth
                 @if (Auth::user()->admin == true)
                 <div class="pull-right me-2">
-                    <a class="btn btn-primary me-3" href="{{ route('viewCaroussel') }}" enctype="multipart/form-data">Back Caroussel</a>
+                    <a class="btn btn-primary" href="{{ route('viewCaroussel') }}" enctype="multipart/form-data">Back Caroussel</a>
                 </div>
                 <div class="pull-right me-2">
                     <a class="btn btn-success" href="{{ route('create') }}">Add New Movie</a>
