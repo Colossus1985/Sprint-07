@@ -25,12 +25,16 @@
     </div>
 
     <div class="">
-        @foreach ($movies as $movie)
-        </form>
-           <img src="{{ Storage::url($movie->img) }}" alt="Image de film" width="200px" height="200px">
-        @endforeach
+        <span style="float:left" class="ss-icon" onclick="galleryspin('-')">&lt;</span>
+        <div id="carousel" class="d-flex flex row">
+            <figure id="spinner">
+            @foreach ( $movies as $movie )
+                <img src="{{ Storage::url($movie->img) }}" alt>
+            @endforeach
+            </figure>
+        </div>
+        <span style="float:right" class="ss-icon" onclick="galleryspin('')">&gt;</span>
+           {{-- <img src="{{ Storage::url($movie->img) }}" alt="Image de film" width="200px" height="200px"> --}}
     </div>
-    
-        
 </div>
 @endsection
