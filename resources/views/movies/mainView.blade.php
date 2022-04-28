@@ -110,7 +110,7 @@
             <td>{{ $movie ->synopsis }}</td>
             <td>{{ $movie ->genre }}</td>
             <td>
-                <img src="{{ Storage::url($movie->img) }}" alt="Image de film" width="200px" height="200px"></td>
+                <img class="imgListMovie" src="{{ Storage::url($movie->img) }}" alt="Image de film"></td>
             <td class="">
                 {{ $movie ->likeplus }}
                 @auth
@@ -141,11 +141,13 @@
             @if (Auth::user()->admin == true)
             <td>
                 <form action="{{ route('movies.destroy', $movie->id) }}" method="Post">
-                    <a class="btn btn-primary" href="{{ route('movies.edit', $movie->id) }}">Modify</a>
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger"
-                        onclick="return confirm('The Movie and all Comments will be deleted');">Delete</button>
+                    <div class="d-flex flex-column">
+                        <a class="flex-fill btn btn-primary mt-2" href="{{ route('movies.edit', $movie->id) }}">Modify</a>
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="flex-fill btn btn-danger mt-2"
+                            onclick="return confirm('The Movie and all Comments will be deleted');">Delete</button>
+                    </div>
                 </form>
             </td>
             @endif

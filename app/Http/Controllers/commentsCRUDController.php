@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comments;
 use Illuminate\Http\Request;
 use App\Models\Movies;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 
@@ -56,9 +57,13 @@ class commentsCRUDController extends Controller
         $comment -> likemoins = 0;
         $comment -> save();
 
-        $nb_commentsOld = trim($request->get('inputNbComments'));
+        // $nb_commentsOld = DB::select("SELECT comments FROM users WHERE pseudo = '$pseudo'");
+        $dataUser = User::query()
+            ->where('pseudo', '=', $pseudo)
+            ->get();
+        // dd($dataUser);
+        $nb_commentsOld = $dataUser[0]->comments;
         $nb_commentsNew = (int)$nb_commentsOld + 1;
-        
         DB::table('users')
             ->where('pseudo', '=', $pseudo)
             ->update(['comments' => $nb_commentsNew]);
