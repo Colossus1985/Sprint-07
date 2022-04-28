@@ -10,8 +10,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
-    <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
-    <script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script>
+    <link href="{{ url('css/main.css') }}" rel="stylesheet" type="text/css">
+
 </head>
 
 <body>
@@ -43,6 +43,10 @@
                                 href="{{ route('home', 'Comedy') }}">Comedy</a></li>
                         <li class="list-inline-item"><a class="dropdown-item"
                                 href="{{ route('home', 'Docu') }}">Docu</a></li>
+                        <li class="list-inline-item"><a class="dropdown-item"
+                                href="{{ route('home', 'Anime') }}">Anime</a></li>
+                        <li class="list-inline-item"><a class="dropdown-item"
+                                href="{{ route('home', 'Horreur') }}">Horreur</a></li>
                     </ul>
 
                     <a class="nav-link dropdown-toggle navbar-brand text-white ms-3" href="#" id="dropdownSerie"
@@ -95,3 +99,4 @@
 </body>
 
 </html>
+<script type="text/javascript" src="{{ url('js/main.js') }}"></script>

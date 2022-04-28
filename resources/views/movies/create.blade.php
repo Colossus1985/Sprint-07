@@ -80,9 +80,17 @@
                                 <input type="radio" name = "genre" value="Comedy" class="btn-check" id="btn-check-outlined-Comedy" autocomplete="off">
                                 <label class="btn btn-outline-primary" for="btn-check-outlined-Comedy">Comedy</label><br>
                             </div> 
-                             <div class = "flex-fill">
+                            <div class = "flex-fill">
                                 <input type="radio" name = "genre" value="Docu" class="btn-check" id="btn-check-outlined-Docu" autocomplete="off">
                                 <label class="btn btn-outline-primary" for="btn-check-outlined-Docu">Docu</label><br>
+                            </div> 
+                            <div class = "flex-fill">
+                                <input type="radio" name = "genre" value="Anime" class="btn-check" id="btn-check-outlined-Anime" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btn-check-outlined-Anime">Anime</label><br>
+                            </div> 
+                            <div class = "flex-fill">
+                                <input type="radio" name = "genre" value="Horreur" class="btn-check" id="btn-check-outlined-Horreur" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btn-check-outlined-Horreur">Horreur</label><br>
                             </div> 
                             @error('genre')
                                 <div class="alert alert-danger mt-1 mb-1">
